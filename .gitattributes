@@ -1,0 +1,6 @@
+# Linguist overrides to recognise repository language
+*.md linguist-vendored=false
+*.md linguist-generated=false
+*.md linguist-documentation=false
+README.md linguist-detectable=true
+*.md linguist-language=VBA
