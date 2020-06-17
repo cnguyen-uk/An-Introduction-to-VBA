@@ -1,7 +1,7 @@
 # An Introduction to VBA
 *A compact introduction to using VBA.*
 
-Visual Basic for Applications (VBA) is an object based language that is commonly run with a host application, such as Excel, to automate tedious tasks. VBA is related to Visual Basic (VB), with the main difference being that VB can make stand-alone executables, whereas VBA requires a host application. In particular, this guide will focus on using VBA with Excel.
+Visual Basic for Applications (VBA) is an object-based language (but isn't an OOP language, since it doesn't support inheritance) that is commonly run with a host application, such as Excel, to automate tedious tasks. VBA is related to Visual Basic (VB), with the main difference being that VB can make stand-alone executables, whereas VBA requires a host application. In particular, this guide will focus on using VBA with Excel.
 
 There are plenty of good, comprehensive guides to using VBA available online. The aim of this guide is the opposite - to present VBA in a compact way for someone who is already familiar with at least one programming language.
 
@@ -29,7 +29,7 @@ Generally, VBA code to be run is contained within subroutines,  with naming comm
 
 ```VBA
 Sub macroName()
-' This is a comment.
+	'This is a comment.
 	Statement1
 	Statement2
 End Sub
@@ -59,64 +59,52 @@ In particular, VBA contains the [`Sheets` object](https://docs.microsoft.com/en-
 The `Select` method can be used to select a cell, or multiple cells, in the current sheet.
 
 ```VBA
-Sub example()
-	'Selecting cells H1 and D8.
-	Range("H1, D8").Select
-End Sub
+'Selecting cells H1 and D8.
+Range("H1, D8").Select
 ```
 
 We can also select cells in sheets other than the current one by using the `Activate` method.
 
 ```VBA
-Sub example()
-	'Selecting cells G2, J9 and P10 in Sheet5.
-	Sheets("Sheet5").Activate
-	Range("G2, J9, P10").Select
-End Sub
+'Selecting cells G2, J9 and P10 in Sheet5.
+Sheets("Sheet5").Activate
+Range("G2, J9, P10").Select
 ```
 
 Instead of creating a Range object by selecting cells individually within the `Range` property, we can select a range of them, or even a range that has been renamed.
 
 ```VBA
-Sub example()
-	'Selecting cells A1 to A5.
-	Range("A1:A5").Select
-	
-	'Selecting cells from the namedRange range.
-	Range("namedRange").Select
-End Sub
+'Selecting cells A1 to A5.
+Range("A1:A5").Select
+
+'Selecting cells from the namedRange range.
+Range("namedRange").Select
 ```
 
 Similarly, we can select entire rows or columns by using the `Rows` or `Columns` properties, respectively. Alternatively, we can still use the `Range` property.
 
 ```VBA
-Sub example()
-	'Selecting rows 2 to 7.
-	Range("2:7").Select
-	Rows("2:7").Select
-	
-	`Selecting columns B to H.
-	Range("B:H").Select
-	Columns("B:H").Select
-End Sub
+'Selecting rows 2 to 7.
+Range("2:7").Select
+Rows("2:7").Select
+
+`Selecting columns B to H.
+Range("B:H").Select
+Columns("B:H").Select
 ```
 
 Quite often we will want to be able to dynamically select cells, rather than a particular one. For example, we may want to select the *n*th row in the *m*th column, where *n* and *m* depend on what's happened in the module. To do this, we can use the `Cells` property.
 
 ```VBA
-Sub example()
-	'Selecting the cell in row 4, column 7.
-	Cells(4, 7).Select
-End Sub
+'Selecting the cell in row 4, column 7.
+Cells(4, 7).Select
 ```
 
 The `Offset` property can be used to move a selection.
 
 ```VBA
-Sub example()
-	'Moving the selected cell down 2, right 7.
-	ActiveCell.Offset(2, 7).Select
-End Sub
+'Moving the selected cell down 2, right 7.
+ActiveCell.Offset(2, 7).Select
 ```
 
 ### Properties
@@ -128,52 +116,42 @@ VBA uses *dot notation* to denote hierarchy when manipulating an object. For exa
 The `Value` property represents the contents of a cell. This can be used to change the contents of a cell.
 
 ```VBA
-Sub example()
-	'Setting the value of cell B3 to 19.
-	Range("B3").Value = 19
-	
-	'Setting the value of cell D9 to the string "This is some text".
-	Range("D9").Value = "This is some text"
-End Sub
+'Setting the value of cell B3 to 19.
+Range("B3").Value = 19
+
+'Setting the value of cell D9 to the string "This is some text".
+Range("D9").Value = "This is some text"
 ```
 
 Of course, we can use dot notation to change the contents of cells in more specific locations.
 
 ```VBA
-Sub example()
-	'Setting the value of cell B3 in Sheet2 of another open workbook to 19.
-	Workbook("Book5.xlsx").Sheets("Sheet2").Range("B3").Value = 19
-End Sub
+'Setting the value of cell B3 in Sheet2 of another open workbook to 19.
+Workbook("Book5.xlsx").Sheets("Sheet2").Range("B3").Value = 19
 ```
 
 Note that not using the `Value` property would have the same effect, since if no other property is specified, then the value of the cell is modified by default.
 
 ```VBA
-Sub example()
-	'Setting the value of cell B3 to 19.
-	Range("B3") = 19
-End Sub
+'Setting the value of cell B3 to 19.
+Range("B3") = 19
 ```
 
 Of course, it is also possible to change the value (or any other property, such as font size) of a cell based on another cell, or even itself.
 
 ```VBA
-Sub example()
-	'Setting the value of cell B3 to the value of cell A1.
-	Range("B3") = Range("Al")
+'Setting the value of cell B3 to the value of cell A1.
+Range("B3") = Range("Al")
 
-	'Increasing the value of cell D2 by 1, every time the macro is run.
-	Range("D2") = Range("D2") + 1
-End Sub
+'Increasing the value of cell D2 by 1, every time the macro is run.
+Range("D2") = Range("D2") + 1
 ```
 
 The `ClearContents` method can be used to erase the contents of a cell.
 
 ```VBA
-Sub example()
-	'Erasing the contents of cell B3.
-	Range("B3").ClearContents
-End Sub
+'Erasing the contents of cell B3.
+Range("B3").ClearContents
 ```
 
 #### Text Formatting
@@ -183,34 +161,28 @@ To format text we will access the `Font` property. Within the IDE simply typing 
 The `Size` property can be used to change the text size.
 
 ```VBA
-Sub example()
-	'Formatting the contents of cell B3 to have font size 18.
-	Range("B3").Font.Size = 18
-End Sub
+'Formatting the contents of cell B3 to have font size 18.
+Range("B3").Font.Size = 18
 ```
 
 The `Bold`, `Italic`, and `Underline` properties can be used to give text the bold, italic, and underline emphasis, respectively.
 
 ```VBA
-Sub example()
-	'Formatting the contents of cell B3 to be in bold.
-	Range("B3").Font.Bold = True
-	
-	'Formatting the contents of cell D6 to be in italics.
-	Range("D6").Font.Italics = True
-	
-	'Formatting the contents of cell A1 to be underlined.
-	Range("A1").Font.Underline = True
-End Sub
+'Formatting the contents of cell B3 to be in bold.
+Range("B3").Font.Bold = True
+
+'Formatting the contents of cell D6 to be in italics.
+Range("D6").Font.Italics = True
+
+'Formatting the contents of cell A1 to be underlined.
+Range("A1").Font.Underline = True
 ```
 
 The `Name` property can be used to set the font style.
 
 ```VBA
-Sub example()
-	'Formatting the contents of cell B3 to have the Arial font.
-	Range("B3").Font.Name = "Arial"
-End Sub
+'Formatting the contents of cell B3 to have the Arial font.
+Range("B3").Font.Name = "Arial"
 ```
 
 #### Borders
@@ -219,16 +191,14 @@ Here are a couple of other commonly used properties.
 The `Borders` property can be used to add a border to cells. Similar to the `Font` property, we can use the IDE to reveal a list of properties belonging to the `Borders` property.
 
 ```VBA
-Sub example()
-	'Adding a border to cells B3 to B9.
-	Range("B3:B9").Borders.Value = 1
+'Adding a border to cells B3 to B9.
+Range("B3:B9").Borders.Value = 1
 
-	'Making the borders as thick as possible.
-	Range("B3:B9").Borders.Weight = 4
+'Making the borders as thick as possible.
+Range("B3:B9").Borders.Weight = 4
 
-	'Removing borders from cell A2.
-	Range("A2").Borders.Value = 0
-End Sub
+'Removing borders from cell A2.
+Range("A2").Borders.Value = 0
 ```
 
 #### The `With` Statement
@@ -236,43 +206,37 @@ End Sub
 Suppose we wanted to change various properties of some cells.
 
 ```VBA
-Sub example()
-	Range("B3:B9").Borders.Weight = 3
-	Range("B3:B9").Font.Bold = True
-	Range("B3:B9").Font.Size = 18
-	Range("B3:B9").Font.Italic = True
-	Range("B3:B9").Font.Name = "Arial"
-End Sub
+Range("B3:B9").Borders.Weight = 3
+Range("B3:B9").Font.Bold = True
+Range("B3:B9").Font.Size = 18
+Range("B3:B9").Font.Italic = True
+Range("B3:B9").Font.Name = "Arial"
 ```
 
 We can reduce repeated code by using the `With` statement.
 
 ```VBA
-Sub example()
-	With Range("B3:B9")
-		.Borders.Weight = 3
-		.Font.Bold = True
-		.Font.Size = 18
-		.Font.Italic = True
-		.Font.Name = "Arial"
-	End With
-End Sub
+With Range("B3:B9")
+	.Borders.Weight = 3
+	.Font.Bold = True
+	.Font.Size = 18
+	.Font.Italic = True
+	.Font.Name = "Arial"
+End With
 ```
 
 We can even go further and reduce on the repetition of `.Font`.
 
 ```VBA
-Sub example()
-	With Range("B3:B9")
-		.Borders.Weight = 3
-		With .Font
-			.Bold = True
-			.Size = 18
-			.Italic = True
-			.Name = "Arial"
-		End With
+With Range("B3:B9")
+	.Borders.Weight = 3
+	With .Font
+		.Bold = True
+		.Size = 18
+		.Italic = True
+		.Name = "Arial"
 	End With
-End Sub
+End With
 ```
 
 ### Colors
@@ -286,17 +250,15 @@ Colors can be set either by using the `ColorIndex` property, which is preferred 
 Unfortunately, the `ColorIndex` property is limited to only 56 colors, and depends on the color theme of the application. The color-index values for the default color theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex).
 
 ```VBA
-Sub example()
-	'Setting the color of the B3 cell to blue, and the font to white.
-	Range("B3").Interior.ColorIndex = 5
-	Range("B3").Font.ColorIndex = 2
+'Setting the color of the B3 cell to blue, and the font to white.
+Range("B3").Interior.ColorIndex = 5
+Range("B3").Font.ColorIndex = 2
 
-	'Adding a green border to the B3 to B9 cells.
-	Range("B3:B9").Border.ColorIndex = 4
+'Adding a green border to the B3 to B9 cells.
+Range("B3:B9").Border.ColorIndex = 4
 
-	'Setting the color of the Sheet7 tab to orange.
-	Sheets("Sheet7").Tab.ColorIndex = 45
-End Sub
+'Setting the color of the Sheet7 tab to orange.
+Sheets("Sheet7").Tab.ColorIndex = 45
 ```
 
 #### `Color`
@@ -304,26 +266,190 @@ End Sub
 Using the `Color` property is similar to using the `ColorIndex` property, except it uses RGB color codes. Attempting to use this on versions of Excel older than 2007 will result in an approximate color being chosen from the color palette of 56 colors.
 
 ```VBA
-Sub example()
-	'Setting the color of the B3 cell to blue, and the font to white.
-	Range("B3").Interior.Color = RGB(0, 0, 255)
-	Range("B3").Font.Color = RGB(255, 255, 255)
+'Setting the color of the B3 cell to blue, and the font to white.
+Range("B3").Interior.Color = RGB(0, 0, 255)
+Range("B3").Font.Color = RGB(255, 255, 255)
 
-	'Adding a green border to the B3 to B9 cells.
-	Range("B3:B9").Border.Color = RGB(0, 255, 0)
+'Adding a green border to the B3 to B9 cells.
+Range("B3:B9").Border.Color = RGB(0, 255, 0)
 
-	'Setting the color of the Sheet7 tab to orange.
-	Sheets("Sheet7").Tab.Color = RGB(255, 128, 0)
-End Sub
+'Setting the color of the Sheet7 tab to orange.
+Sheets("Sheet7").Tab.Color = RGB(255, 128, 0)
 ```
 
-## Variables
+## Variables and Types
 
 By default VBA behaves like a statically-typed language, which means that variables need to be given a type before usage. It is possible to use the [`Infer` statement](https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/statements/option-infer-statement) to change VBA's behaviour to a dynamically-typed one, but this comes with the usual disadvantage of more memory usage and slower runtime.
 
-## Conditions
+### Types
+
+See the [documentation on types](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/data-type-summary). Commonly used types for typical programming are the Boolean, Double, Integer and String types.
+
+### Variables
+
+Variable declaration is done as usual (often named in camelCase).
+
+```VBA
+Dim variableName As Type
+```
+
+We may also declare multiple variables in a single line.
+
+```VBA
+Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
+```
+
+### Variable Scope
+
+As usual, the scope of a variable is, by default, the subroutine in which it is declared.
+
+We can declare variables at the beginning of a module to allow usage within the entire module.
+
+```VBA
+Dim variableName As Type
+
+Sub numberOne()
+	'variableName can be used here
+End Sub
+
+Sub numberTwo()
+	'variableName can also be used here
+End Sub
+```
+
+If we want to use variables globally across all modules, then we can instead use the `Global` statement at the beginning of a module.
+
+```VBA
+Global variableName As Type
+```
+
+The `Static` statement can be used to allow the value of a variable to persist.
+
+```VBA
+Sub numberOne()
+	Static variableName As Type
+End Sub
+```
+
+We can also allow the value of all variables within a subroutine to persist.
+
+```VBA
+Static Sub numberOne()
+	Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
+End Sub
+```
+
+### Constants
+
+Constants can’t be changed later and are declared similarly to variables, but can only be Boolean, Byte, Integer, Long, Currency, Single, Double, Date, String, or Variant types. Since the value of a constant should already be known, we can specify the value and type in a single line.
+
+```VBA
+Const gravity As Double = 9.80665
+```
+
+## Conditionals
+
+VBA has the usual comparison and logical operators: `=`, `<>`, `<`, `>`, `<=`, `>=`, `And`, `Or`, `Not`, `Xor`.
+
+### The `If`, `ElseIf` and `Else` Statements
+
+As usual, a block of code is executed given that a condition is true.
+
+```VBA
+If condition1 Then
+	statement1
+ElseIf condition2 Then
+	statement2
+Else
+	statement3
+End If
+```
+
+### The `Select Case` Statement
+
+We can use a `Select Case` statement to handle cases more elegantly.
+
+```VBA
+Dim x As Integer
+Select Case x
+Case Is = 5
+	xComment = "This is the maximum achievable!"
+Case Is = 4
+	xComment = "This is almost the maximum achievable!"
+Case Else
+	xComment = "This is quite average"
+End Select
+```
+
+### Wildcard Characters and the `Like` Operator
+
+When working with a lot of data, it is common to want to be able to compare whether the contents of one cell is contained in the contents of another cell. Since the comparison operators are not capable of doing this, VBA uses wildcard characters with the `Like` operator.
+
+The wildcard usage is typical and can be read in detail [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/wildcard-characters-used-in-string-comparisons).
+
+```VBA
+Dim exampleString As String
+exampleString = "Example 12345"
+
+'All of the following conditionals return True
+
+exampleString Like "*12345*"
+exampleString Like "Example 12###"
+exampleString Like "?xample?1234?"
+exampleString Like "[DEF]xample 1234[4-7]"
+exampleString Like "[!GHIJ]xample 1234[!6-9]"
+```
 
 ## Loops
+VBA has three looping constructs - the `While`, `Do`, and `For` loops.
+
+### The `While` Loop
+
+The basic syntax for a `While` loop is as follows:
+
+```VBA
+While condition
+	statement
+Wend
+```
+
+### The `Do` Loops
+
+VBA has four different syntaxes for do loops. These loops will repeat a block of statements while a condition is `True`, or until a condition becomes `True`. By placing the `While` or `Until` conditions in different places, we can produce different outcomes. For example, by placing the `While` or `Until` conditions at the end, we can guarantee that any statements will execute at least once.
+
+```VBA
+Do While condition
+	statement
+Loop
+```
+
+```VBA
+Do
+	statement
+Loop While condition
+```
+
+```VBA
+Do Until condition
+	statement
+Loop
+```
+
+```VBA
+Do
+	statement
+Loop Until condition
+```
+
+### The `For` Loop
+
+The basic syntax for a `For` loop is as follows:
+
+```VBA
+For i = startNumber To endNumber
+	statement
+Next
+```
 
 ## Procedures and Functions
 
