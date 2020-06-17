@@ -47,7 +47,7 @@ A *module* is a code container. The main types of modules are:
 * UserForm Modules: contain VBA code which controls UserForm objects.
 * Class Modules: contain VBA code used to create new VBA objects.
 
-The IDE project pane can be used to write code in the workbook and sheet modules, which are created automatically, or to insert the other module types.
+The IDE project pane can be used to choose which module to write code into. The workbook and sheet modules are created automatically, but we can also insert the other module types.
 
 It is important to correctly choose which module type to use in order to avoid unexpected results and to maintain high levels of code hygiene. For example, using sheet modules can create unexpected results when the sheet itself is deleted, copied or moved. On the other hand, using standard code modules allows for the logical structuring of code as units, which can then be version controlled and managed easily in large project. Of course, not all code should blindly be put into standard code modules - event procedures put into a standard code module will fail to execute.
 
