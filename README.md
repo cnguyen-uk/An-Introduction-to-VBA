@@ -37,7 +37,7 @@ End Sub
 
 To actually run a macro, we can either use the IDE itself to run the code, or we can insert a button into the sheet by clicking on "Insert" then "Button (Form Control)" in the Developer tab. We can then assign a macro to the button, and execute the macro by clicking on it.
 
-Of course, there is only so much that can be achieved without knowing VBA. In the following sections, we will look at creating macros by actually writing VBA code in the IDE.
+Of course, there is only so much that can be achieved without knowing VBA. In the upcoming sections, we will look at creating macros by actually writing VBA code in the IDE.
 
 ### Modules
 
@@ -52,6 +52,21 @@ The IDE project pane can be used to write code in the workbook and sheet modules
 It is important to correctly choose which module type to use in order to avoid unexpected results and to maintain high levels of code hygiene. For example, using sheet modules can create unexpected results when the sheet itself is deleted, copied or moved. On the other hand, using standard code modules allows for the logical structuring of code as units, which can then be version controlled and managed easily in large project. Of course, not all code should blindly be put into standard code modules - event procedures put into a standard code module will fail to execute.
 
 Throughout the rest of this guide, unless otherwise specified, we will assume that all VBA code is placed in a standard code module. Hence, all usage of the word "module" will refer to standard code modules. The other three module types are not the main focus of this guide, but workbook and sheet modules are used in the [Events](#events) section, UserForm modules are used in the [Forms and Controls](#forms-and-controls) section, while class modules are not used at all.
+
+### Printing
+
+As with any programming language, it is useful to be able to print outputs. In VBA there are several ways to do this, such as by outputting to a cell in a worksheet; displaying the output using a dialog box; or by using the Immediate window.
+
+The first two ways are discussed later on in this guide, [here](#cell-content-manipulation) and [here](#the-msgbox-function), and require the least set up to do. Some programmers will prefer to use the third way since it offers a more familiar coding experience. To set up the Immediate window next to the IDE, see [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/immediate-window).
+
+To print to the Immediate window, we can use the `Print()` method:
+
+```VBA
+Sub helloWorld()
+	Debug.Print("Hello World!")
+End Sub
+```
+
 
 ## Sheets and Cells
 
@@ -259,7 +274,7 @@ Colours can be set either by using the `ColorIndex` property, which is preferred
 
 #### `ColorIndex`
 
-Unfortunately, the `ColorIndex` property is limited to only 56 colours, and depends on the colour theme of the application. The colour-index values for the default colour theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex).
+Unfortunately, the `ColorIndex` property is limited to only 56 colours, and depends on the colour theme of the application. The colour-index values for the default colour theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex#remarks).
 
 ```VBA
 ' Setting the colour of the B3 cell to blue, and the font to white.
@@ -571,11 +586,11 @@ Sub test()
 	calculateSquare1 testNumber1
 	calculateSquare2 testNumber2
 
-	' The value of testNumber1 will be displayed as 400.
-	MsgBox testNumber1
+	' Prints 400.
+	Debug.Print(testNumber1)
 	
-	' The value of testNumber2 will be displayed as 20.
-	MsgBox testNumber2
+	' Prints 20.
+	Debug.Print(testNumber2)
 End Sub
 ```
 
@@ -595,14 +610,54 @@ End Function
 Sub test()
 	result = calculateSquare(20)
 
-	' The value of result will be displayed as 400.
-	MsgBox result
+	' Prints 400.
+	Debug.Print(result)
 End Sub
 ```
 
 Functions which are created inside modules can be used in a worksheet just like any other Excel function.
 
-## Dialog Boxes
+## Dialog Box Functions
+
+Dialog boxes are useful for displaying information to the user, or for requesting user input. In this section we will discuss two commonly used dialog boxes, but many more exist.
+
+### The `MsgBox()` Function
+
+The `MsgBox()` function can be used to display information to the user. The basic syntax is as follows:
+
+```VBA
+MsgBox("Hello World!")
+```
+
+The `MsgBox()` function can accept two other optional arguments to determine the buttons on the dialog box, and the title of the dialog box, i.e. `MsgBox(text, [buttons,] [title])`. See [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function#settings) for the full table on the settings of the buttons argument.
+
+```VBA
+' The following two lines produce the same dialog box:
+MsgBox("Do you feel happy?", vbYesNo, "Mood Check")
+MsgBox("Do you feel happy?", 4, "Mood Check")
+
+' The following three lines produce the same dialog box:
+MsgBox("Delete all contents?", vbYesNoCancel + vbExclamation + vbDefaultButton2 + vbSystemModal, "Confirmation")
+MsgBox("Delete all contents?", 3 + 48 + 256 + 4096, "Confirmation")
+MsgBox("Delete all contents?", 4403, "Confirmation")
+```
+
+The `MsgBox()` function also returns values, which can be referred to using the following syntax:
+
+```VBA
+MsgBox(text, [buttons,] [title]) = returnValue
+```
+Either the constant name or the numerical value for the return value can be used. See [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function#return-values) for the full table of return values.
+
+### The `InputBox()` Function
+
+The `InputBox()` function can be used to request information from the user, which can then be stored in a variable. The basic syntax is as follows:
+
+```VBA
+InputBox("What is your name?")
+```
+
+The `InputBox()` function can accept two other optional arguments to determine the title of the dialog box and a default response, i.e. `MsgBox(text, [title,] [default])`.
 
 ## Events
 
