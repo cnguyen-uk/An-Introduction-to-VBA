@@ -1,3 +1,4 @@
+
 # An Introduction to VBA
 *A compact introduction to using VBA.*
 
@@ -86,14 +87,14 @@ In particular, VBA contains the [`Sheets` object](https://docs.microsoft.com/en-
 The `Select` method can be used to select a cell, or multiple cells, in the current sheet.
 
 ```VBA
-' Selecting cells H1 and D8.
+' Selects cells H1 and D8.
 Range("H1, D8").Select
 ```
 
 We can also select cells in sheets other than the current one by using the `Activate` method.
 
 ```VBA
-' Selecting cells G2, J9 and P10 in Sheet5.
+' Selects cells G2, J9 and P10 in Sheet5.
 Sheets("Sheet5").Activate
 Range("G2, J9, P10").Select
 ```
@@ -101,21 +102,21 @@ Range("G2, J9, P10").Select
 Instead of creating a Range object by selecting cells individually within the `Range` property, we can select a range of them, or even a range that has been renamed.
 
 ```VBA
-' Selecting cells A1 to A5.
+' Selects cells A1 to A5.
 Range("A1:A5").Select
 
-' Selecting cells from the namedRange range.
+' Selects cells from the namedRange range.
 Range("namedRange").Select
 ```
 
 Similarly, we can select entire rows or columns by using the `Rows` or `Columns` properties, respectively. Alternatively, we can still use the `Range` property.
 
 ```VBA
-' Selecting rows 2 to 7.
+' Selects rows 2 to 7.
 Range("2:7").Select
 Rows("2:7").Select
 
-' Selecting columns B to H.
+' Selects columns B to H.
 Range("B:H").Select
 Columns("B:H").Select
 ```
@@ -123,14 +124,14 @@ Columns("B:H").Select
 Quite often we will want to be able to dynamically select cells, rather than a particular one. For example, we may want to select the *n*th row in the *m*th column, where *n* and *m* depend on what's happened in the module. To do this, we can use the `Cells` property.
 
 ```VBA
-' Selecting the cell in row 4, column 7.
+' Selects the cell in row 4, column 7.
 Cells(4, 7).Select
 ```
 
 The `Offset` property can be used to move a selection.
 
 ```VBA
-' Moving the selected cell down 2, right 7.
+' Moves the selected cell down 2, right 7.
 ActiveCell.Offset(2, 7).Select
 ```
 
@@ -143,41 +144,41 @@ VBA uses *dot notation* to denote hierarchy when manipulating an object. For exa
 The `Value` property represents the contents of a cell. This can be used to change the contents of a cell.
 
 ```VBA
-' Setting the value of cell B3 to 19.
+' Sets the value of cell B3 to 19.
 Range("B3").Value = 19
 
-' Setting the value of cell D9 to the string "This is some text".
+' Sets the value of cell D9 to the string "This is some text".
 Range("D9").Value = "This is some text"
 ```
 
 Of course, we can use dot notation to change the contents of cells in more specific locations.
 
 ```VBA
-' Setting the value of cell B3 in Sheet2 of another open workbook to 19.
+' Sets the value of cell B3 in Sheet2 of another open workbook to 19.
 Workbook("Book5.xlsx").Sheets("Sheet2").Range("B3").Value = 19
 ```
 
 Note that not using the `Value` property would have the same effect, since if no other property is specified, then the value of the cell is modified by default.
 
 ```VBA
-' Setting the value of cell B3 to 19.
+' Sets the value of cell B3 to 19.
 Range("B3") = 19
 ```
 
 Of course, it is also possible to change the value (or any other property, such as font size) of a cell based on another cell, or even itself.
 
 ```VBA
-' Setting the value of cell B3 to the value of cell A1.
+' Sets the value of cell B3 to the value of cell A1.
 Range("B3") = Range("Al")
 
-' Increasing the value of cell D2 by 1, every time the macro is run.
+' Increases the value of cell D2 by 1, every time the macro is run.
 Range("D2") = Range("D2") + 1
 ```
 
 The `ClearContents` method can be used to erase the contents of a cell.
 
 ```VBA
-' Erasing the contents of cell B3.
+' Erases the contents of cell B3.
 Range("B3").ClearContents
 ```
 
@@ -188,27 +189,27 @@ To format text we will access the `Font` property. Within the IDE simply typing 
 The `Size` property can be used to change the text size.
 
 ```VBA
-' Formatting the contents of cell B3 to have font size 18.
+' Formats the contents of cell B3 to have font size 18.
 Range("B3").Font.Size = 18
 ```
 
 The `Bold`, `Italic`, and `Underline` properties can be used to give text the bold, italic, and underline emphasis, respectively.
 
 ```VBA
-' Formatting the contents of cell B3 to be in bold.
+' Formats the contents of cell B3 to be in bold.
 Range("B3").Font.Bold = True
 
-' Formatting the contents of cell D6 to be in italics.
+' Formats the contents of cell D6 to be in italics.
 Range("D6").Font.Italics = True
 
-' Formatting the contents of cell A1 to be underlined.
+' Formats the contents of cell A1 to be underlined.
 Range("A1").Font.Underline = True
 ```
 
 The `Name` property can be used to set the font style.
 
 ```VBA
-' Formatting the contents of cell B3 to have the Arial font.
+' Formats the contents of cell B3 to have the Arial font.
 Range("B3").Font.Name = "Arial"
 ```
 
@@ -218,13 +219,13 @@ Here are a couple of other commonly used properties.
 The `Borders` property can be used to add a border to cells. Similar to the `Font` property, we can use the IDE to reveal a list of properties belonging to the `Borders` property.
 
 ```VBA
-' Adding a border to cells B3 to B9.
+' Adds a border to cells B3 to B9.
 Range("B3:B9").Borders.Value = 1
 
-' Making the borders as thick as possible.
+' Makes the borders as thick as possible.
 Range("B3:B9").Borders.Weight = 4
 
-' Removing borders from cell A2.
+' Removes borders from cell A2.
 Range("A2").Borders.Value = 0
 ```
 
@@ -277,14 +278,14 @@ Colours can be set either by using the `ColorIndex` property, which is preferred
 Unfortunately, the `ColorIndex` property is limited to only 56 colours, and depends on the colour theme of the application. The colour-index values for the default colour theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex#remarks).
 
 ```VBA
-' Setting the colour of the B3 cell to blue, and the font to white.
+' Sets the colour of the B3 cell to blue, and the font to white.
 Range("B3").Interior.ColorIndex = 5
 Range("B3").Font.ColorIndex = 2
 
-' Adding a green border to the B3 to B9 cells.
+' Adds a green border to the B3 to B9 cells.
 Range("B3:B9").Border.ColorIndex = 4
 
-' Setting the colour of the Sheet7 tab to orange.
+' Sets the colour of the Sheet7 tab to orange.
 Sheets("Sheet7").Tab.ColorIndex = 45
 ```
 
@@ -293,14 +294,14 @@ Sheets("Sheet7").Tab.ColorIndex = 45
 Using the `Color` property is similar to using the `ColorIndex` property, except it uses RGB colour codes. Attempting to use this on versions of Excel older than 2007 will result in an approximate colour being chosen from the colour palette of 56 colours.
 
 ```VBA
-' Setting the colour of the B3 cell to blue, and the font to white.
+' Sets the colour of the B3 cell to blue, and the font to white.
 Range("B3").Interior.Color = RGB(0, 0, 255)
 Range("B3").Font.Color = RGB(255, 255, 255)
 
-' Adding a green border to the B3 to B9 cells.
+' Adds a green border to the B3 to B9 cells.
 Range("B3:B9").Border.Color = RGB(0, 255, 0)
 
-' Setting the colour of the Sheet7 tab to orange.
+' Sets the colour of the Sheet7 tab to orange.
 Sheets("Sheet7").Tab.Color = RGB(255, 128, 0)
 ```
 
@@ -568,7 +569,7 @@ When passing arguments to a subroutine, we can choose to pass them either by val
 The differences are best demonstrated by example.
 
 ```VBA
-' Creating two subroutines which squares numbers, with different pass bys.
+' Creates two subroutines which squares numbers, with different pass bys.
 Sub calculateSquare1(ByRef number As Integer)
 	number = number * number
 End Sub
@@ -577,7 +578,7 @@ Sub calculateSquare2(ByVal number As Integer)
 	number = number ^ 2
 End Sub
 
-' Testing out the two subroutines.
+' Tests out the two subroutines.
 Sub test()
 	Dim testNumber1 As Integer, testNumber2 As Integer
 	testNumber1 = 20
@@ -598,15 +599,15 @@ Deciding between passing by value or passing by reference depends on both variab
 
 ### Functions
 
-In VBA, subroutines and functions are similar, except functions must return a value. Using the function name within the function itself is used to determine the return value. Subroutines and functions can be called inside of each other, but function calls should have arguments enclosed in `()`.
+In VBA, subroutines and functions are similar, except functions must return a value. Using the function name within the function itself is used to determine the return value. Subroutines and functions can be called inside of each other, but function calls should have arguments enclosed in `( )`.
 
 ```VBA
-' Creating a function which squares numbers.
+' Creates a function which squares numbers.
 Function calculateSquare(number As Integer)
 	calculateSquare = number ^ 2
 End Function
 
-' Testing out the calculateSquare function.
+' Tests out the calculateSquare function.
 Sub test()
 	result = calculateSquare(20)
 
