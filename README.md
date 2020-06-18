@@ -25,7 +25,7 @@ In general, we can create macros to automate tasks in Excel. Macros can be creat
 
 Indeed, the most basic way to work with VBA is to let Excel create the code by recording a macro. This can be done by using the "Record Macro" option in the Developer tab. Given the straightforward nature of VBA syntax, we can make minor tweaks to the code as we wish.
 
-Generally, VBA code to be run is contained within *subroutines* (also called *procedures*),  with naming commonly done in camelCase. Commenting is simply prefaced with a `'` followed by a space.
+Generally, VBA code to be run is contained within *subroutines* (also called *procedures*),  with naming commonly done in camelCase. Commenting is simply prefaced with a `'`.
 
 ```VBA
 Sub macroName()
