@@ -1,4 +1,3 @@
-
 # An Introduction to VBA
 *A compact introduction to using VBA.*
 
@@ -44,13 +43,13 @@ Of course, there is only so much that can be achieved without knowing VBA. In th
 
 A *module* is a code container. The main types of modules are:
 * Standard Code Modules: also called Code Modules, or just Modules. This is where most VBA code should go unless there is good reason to use another module type.
-* Workbook and Sheet Modules: contain VBA code which control event procedures for workbooks and sheets.
+* Workbook and Sheet Modules: contain VBA code which control event subroutines for workbooks and sheets.
 * UserForm Modules: contain VBA code which controls UserForm objects.
 * Class Modules: contain VBA code used to create new VBA objects.
 
 The IDE project pane can be used to choose which module to write code into. The workbook and sheet modules are created automatically, but we can also insert the other module types.
 
-It is important to correctly choose which module type to use in order to avoid unexpected results and to maintain high levels of code hygiene. For example, using sheet modules can create unexpected results when the sheet itself is deleted, copied or moved. On the other hand, using standard code modules allows for the logical structuring of code as units, which can then be version controlled and managed easily in large project. Of course, not all code should blindly be put into standard code modules - event procedures put into a standard code module will fail to execute.
+It is important to correctly choose which module type to use in order to avoid unexpected results and to maintain high levels of code hygiene. For example, using sheet modules can create unexpected results when the sheet itself is deleted, copied or moved. On the other hand, using standard code modules allows for the logical structuring of code as units, which can then be version controlled and managed easily in large project. Of course, not all code should blindly be put into standard code modules - event subroutines put into a standard code module will fail to execute.
 
 Throughout the rest of this guide, unless otherwise specified, we will assume that all VBA code is placed in a standard code module. Hence, all usage of the word "module" will refer to standard code modules. The other three module types are not the main focus of this guide, but workbook and sheet modules are used in the [Events](#events) section, UserForm modules are used in the [Forms and Controls](#forms-and-controls) section, while class modules are not used at all.
 
@@ -80,7 +79,6 @@ People commonly use "sheets", "worksheets", and even "workbooks" interchangeably
 A *sheet* is a collection of *worksheets* and *chart sheets*. A *workbook* is a collection of sheets. In VBA, there is a difference between using the singular and plural form of these objects. For example, if we wanted to use a particular worksheet as a parameter to some function, then we would use the `Worksheet` object rather than the `Worksheets` object.
 
 In particular, VBA contains the [`Sheets` object](https://docs.microsoft.com/en-us/office/vba/api/excel.sheets), the [`Worksheet` object](https://docs.microsoft.com/en-us/office/vba/api/excel.worksheet), the [`Worksheets` object](https://docs.microsoft.com/en-us/office/vba/api/excel.worksheets), the [`Chart` object](https://docs.microsoft.com/en-us/office/vba/api/excel.chart(object)), [`Charts` object](https://docs.microsoft.com/en-us/office/vba/api/excel.charts), the [`Workbook` object](https://docs.microsoft.com/en-us/office/vba/api/excel.workbook), and the [`Workbooks` object](https://docs.microsoft.com/en-us/office/vba/api/excel.workbooks).
-
 
 ### Selections
 
@@ -648,6 +646,7 @@ The `MsgBox()` function also returns values, which can be referred to using the 
 ```VBA
 MsgBox(text, [buttons,] [title]) = returnValue
 ```
+
 Either the constant name or the numerical value for the return value can be used. See [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function#return-values) for the full table of return values.
 
 ### The `InputBox()` Function
@@ -661,6 +660,214 @@ InputBox("What is your name?")
 The `InputBox()` function can accept two other optional arguments to determine the title of the dialog box and a default response, i.e. `MsgBox(text, [title,] [default])`.
 
 ## Events
+
+In this section we will be using workbook or worksheet events (such as opening, closing and saving) to trigger VBA code. Throughout this section we will need to contain code in either the workbook or sheets modules. If code is placed into a different module type, then Excel will fail to find the code, and hence not execute it.
+
+### Workbook Events
+
+We can use special Private subroutine names to indicate which events will trigger VBA code. Note that the special subroutines in this section do not need to be Private, but should be for the sake of good code hygiene.
+
+For workbook events, we need to ensure that the VBA code is contained in a workbook module. After ensuring that the first dropdown menu at the top of the IDE has "Workbook" selected, we can then use the second dropdown menu to see all possible workbook events. Selecting an event will automatically set up the special Private subroutine in which to enter code. Alternatively, we can also set up these special Private subroutines by simply entering the correct code.
+
+We will now list some commonly used workbook events under which we can trigger VBA code, along with the associated subroutine syntax.
+
+The `Open` event triggers code when the workbook is opened.
+
+```VBA
+Private Sub Workbook_Open()
+
+End Sub
+```
+
+The `BeforeClose` event triggers code immediately before the workbook is closed.
+
+```VBA
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+' The Cancel variable can be set to True to cancel the closing of the workbook.
+End Sub
+```
+
+The `BeforeSave` event triggers code immediately before the workbook is saved.
+
+```VBA
+Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
+' The SaveAsUI variable returns True if the Save As dialog box was displayed.
+' The Cancel variable can be set to True to cancel the saving of the workbook.
+End Sub
+```
+
+The `AfterSave` event triggers code immediately after the workbook is saved.
+
+```VBA
+Private Sub Workbook_AfterSave(ByVal Success As Boolean)
+' The Success variable returns True if the save operation was successful.
+End Sub
+```
+
+The `BeforePrint` event triggers code immediately before anything in the workbook is printed.
+
+```VBA
+Private Sub Workbook_BeforePrint(Cancel As Boolean)
+' The Cancel variable can be set to True to cancel the printing of anything in the workbook.
+End Sub
+```
+
+The `SheetActivate` event triggers code each time the activated sheet is changed.
+
+```VBA
+Private Sub Workbook_SheetActivate(ByVal Sh As Object)
+' The Sh Worksheet object is the activated sheet.
+End Sub
+```
+
+The `SheetBeforeDoubleClick` event triggers code immediately before a double-click on a cell in any worksheet.
+
+```VBA
+Private Sub Workbook_SheetBeforeDoubleClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
+' The Sh Worksheet object is the double-clicked worksheet.
+' The Target Range object is the cell nearest to the mouse pointer when the double-click occurred.
+' The Cancel variable can be set to True to cancel the default double-click action.
+End Sub
+```
+
+The `SheetBeforeRightClick` event triggers code immediately before a right-click on a cell in any worksheet.
+
+```VBA
+Private Sub Workbook_SheetBeforeRightClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
+' The Sh Worksheet object is the right-clicked worksheet.
+' The Target Range object is the cell nearest to the mouse pointer when the right-click occurred.
+' The Cancel variable can be set to True to cancel the default right-click action.
+End Sub
+```
+
+The `SheetCalculate` event triggers code each time any worksheet's data is calculated or recalculated, or after any changed data is plotted on a chart.
+
+```VBA
+Private Sub Workbook_SheetCalculate(ByVal Sh As Object)
+' The Sh Worksheet object is the changed sheet.
+End Sub
+```
+
+The `SheetChange` event triggers code each time the contents of a cell in any worksheet are modified.
+
+```VBA
+Private Sub Workbook_SheetChange(ByVal Sh As Object, ByVal Target As Range)
+' The Sh Worksheet object is the modified worksheet.
+' The Target Range object is the changed range.
+End Sub
+```
+
+The `SheetSelectionChange` event triggers code each time the selection changes on any worksheet.
+
+```VBA
+Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Range)
+' The Sh Worksheet object is the worksheet containing the new selection.
+' The Target Range object is the new selected range.
+End Sub
+```
+
+The `NewSheet` event triggers code each time a new sheet is added to the workbook.
+
+```VBA
+Private Sub Workbook_NewSheet(ByVal Sh As Object)
+' The Sh Worksheet object is the new sheet.
+End Sub
+```
+
+The `SheetFollowHyperlink` event triggers code each time a hyperlink is clicked.
+
+```VBA
+Private Sub Workbook_SheetFollowHyperlink(ByVal Sh As Object, ByVal Target As Hyperlink)
+' The Sh Worksheet object is the worksheet that contains the hyperlink.
+' The Target Hyperlink object is the destination of the hyperlink.
+End Sub
+```
+
+### Worksheet Events
+
+The logic for worksheet events is exactly the same as for workbook events, but applied at the worksheet level. Hence, all of the events in this section refer to occurrence in a single worksheet.
+
+For worksheet events, we need to ensure that the VBA code is contained in a sheet module. Similar to the previous section, ensure that the first dropdown menu at the top of the IDE has "Worksheet" selected, and use the second dropdown menu to see all possible worksheet events.
+
+Once again, we will now list some commonly used worksheet events under which we can trigger VBA code, along with the associated subroutine syntax. Some of the event names and syntaxes will be extremely similar to the previous section, but some of them are not exactly the same.
+
+The `SelectionChange` event triggers code each time the selection changes in the worksheet.
+
+```VBA
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+' The Target Range object is the new selected area.
+End Sub
+```
+
+The `Activate` event triggers code each time the sheet is activated.
+
+```VBA
+Private Sub Worksheet_Activate()  
+  
+End Sub
+```
+
+The `Deactivate` event triggers code each time the sheet is deactivated.
+
+```VBA
+Private Sub Worksheet_Deactivate()  
+  
+End Sub
+```
+
+The `BeforeDoubleClick` event triggers code immediately before a double-click on a cell in the worksheet.
+
+```VBA
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+' The Target Range object is the cell nearest to the mouse pointer when the double-click occurred.
+' The Cancel variable can be set to True to cancel the default double-click action.
+End Sub
+```
+
+The `BeforeRightClick` event triggers code immediately before a right-click on a cell in the worksheet.
+
+```VBA
+Private Sub Worksheet_BeforeRightClick(ByVal Target As Range, Cancel As Boolean)
+' The Target Range object is the cell nearest to the mouse pointer when the right-click occurred.
+' The Cancel variable can be set to True to cancel the default right-click action.
+End Sub
+```
+
+The `Calculate` event triggers code each time the worksheet's data is calculated or recalculated.
+
+```VBA
+Private Sub Worksheet_Calculate()
+
+End Sub
+```
+
+The `Change` event triggers code each time the contents of a cell in the worksheet are modified.
+
+```VBA
+Private Sub Worksheet_Change(ByVal Target As Range)
+' The Target Range object is the changed range.
+End Sub
+```
+
+The `FollowHyperlink` event triggers code each time a hyperlink is clicked.
+
+```VBA
+Private Sub Worksheet_FollowHyperlink(ByVal Target As Hyperlink)
+' The Target Hyperlink object is the destination of the hyperlink.
+End Sub
+```
+
+### Deactivating Events
+
+It is possible that an event subroutine actually causes another event which triggers another event subroutine. It is easy to see that an undesirable infinite loop is a possibility.
+
+The `Application.EnableEvents` property can be used to execute code without firing any events.
+
+```VBA
+Application.EnableEvents = False
+statement
+Application.EnableEvents = True
+```
 
 ## Forms and Controls
 
