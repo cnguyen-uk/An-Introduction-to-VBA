@@ -1113,6 +1113,6 @@ Private Sub buttonConfirm_Click()
 	Next
 
 	Range(columnValue & rowValue) = "Cell chosen"
-	Unload Me
+	Unload Me ' Closes the UserForm.
 End Sub
 ```
