@@ -1056,7 +1056,7 @@ Private Sub textboxNumerical_Change()
 	End If
 End Sub
 
-' Checks that the the value entered into textboxNumerical is a number when buttonSubmit is clicked.
+' Checks that the value entered into textboxNumerical is a number when buttonSubmit is clicked.
 ' If the value is a number, then it is stored in the A1 cell. Otherwise, a dialog box is shown.
 Private Sub buttonSubmit_Click()
 	If IsNumeric(textboxNumerical.Value) Then
