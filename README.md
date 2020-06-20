@@ -7,7 +7,60 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
 
 ## Table of Contents
 
-
+- [Introduction](#introduction)
+  * [Getting Started](#getting-started)
+  * [Macros](#macros)
+  * [Lowering Macro Execution Time](#lowering-macro-execution-time)
+  * [Modules](#modules)
+  * [Printing](#printing)
+- [Sheets and Cells](#sheets-and-cells)
+  * [Sheets vs Worksheets vs Workbooks](#sheets-vs-worksheets-vs-workbooks)
+  * [Selections](#selections)
+  * [Properties](#properties)
+    + [Cell Content Manipulation](#cell-content-manipulation)
+    + [Text Formatting](#text-formatting)
+    + [Borders](#borders)
+    + [The `With` Statement](#the--with--statement)
+  * [Colours](#colours)
+    + [`ColorIndex`](#-colorindex-)
+    + [`Color`](#-color-)
+- [Variables and Types](#variables-and-types)
+  * [Types](#types)
+  * [Variables](#variables)
+  * [Variable Scope](#variable-scope)
+  * [Constants](#constants)
+- [Conditionals](#conditionals)
+  * [The `If`, `ElseIf` and `Else` Statements](#the--if----elseif--and--else--statements)
+  * [The `Select Case` Statement](#the--select-case--statement)
+  * [Wildcard Characters and the `Like` Operator](#wildcard-characters-and-the--like--operator)
+- [Loops](#loops)
+  * [The `While` Loop](#the--while--loop)
+  * [The `Do` Loops](#the--do--loops)
+  * [The `For` Loop](#the--for--loop)
+  * [The `For Each` Loop](#the--for-each--loop)
+- [Subroutines and Functions](#subroutines-and-functions)
+  * [Public and Private Subroutines](#public-and-private-subroutines)
+  * [Calling Subroutines](#calling-subroutines)
+  * [Arguments](#arguments)
+  * [Passing Arguments by Value and by Reference](#passing-arguments-by-value-and-by-reference)
+  * [Functions](#functions)
+- [Dialog Box Functions](#dialog-box-functions)
+  * [The `MsgBox()` Function](#the--msgbox----function)
+  * [The `InputBox()` Function](#the--inputbox----function)
+- [Events](#events)
+  * [Workbook Events](#workbook-events)
+  * [Worksheet Events](#worksheet-events)
+  * [Deactivating Events](#deactivating-events)
+- [Forms and Controls](#forms-and-controls)
+  * [UserForms](#userforms)
+    + [Events](#events-1)
+    + [Launching](#launching)
+  * [Controls](#controls)
+    + [Label](#label)
+    + [TextBox](#textbox)
+    + [CommandButton](#commandbutton)
+    + [CheckBox](#checkbox)
+    + [OptionButton](#optionbutton)
 
 ## Introduction
 
@@ -30,14 +83,24 @@ Generally, VBA code to be run is contained within *subroutines* (also called *pr
 ```VBA
 Sub macroName()
 	' This is a comment.
-	Statement1
-	Statement2
+	statement1
+	statement2
 End Sub
 ```
 
 To actually run a macro, we can either use the IDE itself to run the code, or we can insert a button into the sheet by clicking on "Insert" then "Button (Form Control)" in the Developer tab. We can then assign a macro to the button, and execute the macro by clicking on it.
 
 Of course, there is only so much that can be achieved without knowing VBA. In the upcoming sections, we will look at creating macros by actually writing VBA code in the IDE.
+
+### Lowering Macro Execution Time
+
+If a macro results in a lot of modifications to a workbook, then Excel will update the workbook display for every modification. This can severely reduce the speed of the macro. The following code will tell Excel to not update the display, and hence increase the macro's speed:
+
+```VBA
+Application.ScreenUpdating = False
+statement
+Application.ScreenUpdating = True
+```
 
 ### Modules
 
@@ -47,7 +110,7 @@ A *module* is a code container. The main types of modules are:
 * UserForm Modules: contain VBA code which controls UserForm objects.
 * Class Modules: contain VBA code used to create new VBA objects.
 
-The IDE project pane can be used to choose which module to write code into. The workbook and sheet modules are created automatically, but we can also insert the other module types.
+The IDE Project Explorer can be used to choose which module to write code into. The workbook and sheet modules are created automatically, but we can also insert the other module types.
 
 It is important to correctly choose which module type to use in order to avoid unexpected results and to maintain high levels of code hygiene. For example, using sheet modules can create unexpected results when the sheet itself is deleted, copied or moved. On the other hand, using standard code modules allows for the logical structuring of code as units, which can then be version controlled and managed easily in large project. Of course, not all code should blindly be put into standard code modules - event subroutines put into a standard code module will fail to execute.
 
@@ -418,7 +481,6 @@ Dim exampleString As String
 exampleString = "Example 12345"
 
 ' All of the following conditionals return True:
-
 exampleString Like "*12345*"
 exampleString Like "Example 12###"
 exampleString Like "?xample?1234?"
@@ -427,7 +489,7 @@ exampleString Like "[!GHIJ]xample 1234[!6-9]"
 ```
 
 ## Loops
-VBA has three looping constructs - the `While`, `Do`, and `For` loops.
+VBA has four looping constructs - the `While`, `Do`, `For` and `For Each` loops.
 
 ### The `While` Loop
 
@@ -473,6 +535,16 @@ The basic syntax for a `For` loop is as follows:
 
 ```VBA
 For i = startNumber To endNumber
+	statement
+Next
+```
+
+### The `For Each` Loop
+
+The basic syntax for a `For Each` loop is as follows:
+
+```VBA
+For Each item In collection
 	statement
 Next
 ```
@@ -576,7 +648,7 @@ Sub calculateSquare2(ByVal number As Integer)
 	number = number ^ 2
 End Sub
 
-' Tests out the two subroutines.
+' Tests the two subroutines.
 Sub test()
 	Dim testNumber1 As Integer, testNumber2 As Integer
 	testNumber1 = 20
@@ -605,7 +677,7 @@ Function calculateSquare(number As Integer)
 	calculateSquare = number ^ 2
 End Function
 
-' Tests out the calculateSquare function.
+' Tests the calculateSquare function.
 Sub test()
 	result = calculateSquare(20)
 
@@ -614,11 +686,15 @@ Sub test()
 End Sub
 ```
 
-Functions which are created inside modules can be used in a worksheet just like any other Excel function.
+Functions which are created inside modules can be used in a worksheet just like any other Excel function. Conversely, Excel functions can be used inside modules by using the WorksheetFunction object.
+
+```VBA
+WorksheetFunction.functionName
+```
 
 ## Dialog Box Functions
 
-Dialog boxes are useful for displaying information to the user, or for requesting user input. In this section we will discuss two commonly used dialog boxes, but many more exist.
+Dialog boxes are useful for displaying information to the user, or for requesting user input. In this section we will discuss two commonly used dialog boxes, but many more exist, such as the [UserForm dialog box](#forms-and-controls) discussed later.
 
 ### The `MsgBox()` Function
 
@@ -669,7 +745,7 @@ We can use special Private subroutine names to indicate which events will trigge
 
 For workbook events, we need to ensure that the VBA code is contained in a workbook module. After ensuring that the first dropdown menu at the top of the IDE has "Workbook" selected, we can then use the second dropdown menu to see all possible workbook events. Selecting an event will automatically set up the special Private subroutine in which to enter code. Alternatively, we can also set up these special Private subroutines by simply entering the correct code.
 
-We will now list some commonly used workbook events under which we can trigger VBA code, along with the associated subroutine syntax.
+We will now list some commonly used workbook events under which we can trigger VBA code, along with the associated subroutine syntax. See [here](https://docs.microsoft.com/en-us/office/vba/api/excel.workbook#events) for the full list of workbook events.
 
 The `Open` event triggers code when the workbook is opened.
 
@@ -791,6 +867,8 @@ For worksheet events, we need to ensure that the VBA code is contained in a shee
 
 Once again, we will now list some commonly used worksheet events under which we can trigger VBA code, along with the associated subroutine syntax. Some of the event names and syntaxes will be extremely similar to the previous section, but some of them are not exactly the same.
 
+See [here](https://docs.microsoft.com/en-us/office/vba/excel/concepts/events-worksheetfunctions-shapes/worksheet-object-events) for the full list of worksheet events.
+
 The `SelectionChange` event triggers code each time the selection changes in the worksheet.
 
 ```VBA
@@ -859,7 +937,7 @@ End Sub
 
 ### Deactivating Events
 
-It is possible that an event subroutine actually causes another event which triggers another event subroutine. It is easy to see that an undesirable infinite loop is a possibility.
+It is possible that an event subroutine actually causes an event which triggers another event subroutine. It is easy to see that an undesirable infinite loop is a possibility.
 
 The `Application.EnableEvents` property can be used to execute code without firing any events.
 
@@ -871,4 +949,170 @@ Application.EnableEvents = True
 
 ## Forms and Controls
 
-## Arrays
+UserForms are dialog boxes which allow for the addition of controls, such as the CheckBox, ComboBox and TextBox controls. With this, UserForms can be customised to a high degree.
+
+Similar to workbook and worksheet events, we will be using events associated with UserForms, and their corresponding controls, to trigger VBA code. Throughout this section we will need to contain code in the UserForm module.
+
+### UserForms
+
+To insert a new UserForm module we can use the Project Explorer. Doing this will open the UserForm window from which we can open the following relevant windows:
+* Properties window: allows for the modification of the UserForm's properties, such as appearance, behaviour and font. Open this via the right-click menu.
+* Toolbox window: allows for the addition of controls. Opens automatically.
+* IDE window: allows for VBA code triggered by events, to be attached to the UserForm. Open this by double-clicking the UserForm.
+
+#### Events
+
+Similar to the previous section, ensure that the first dropdown menu at the top of the IDE has "UserForm" selected, and use the second dropdown menu to see all possible UserForm events.
+
+Typically UserForms are used because of the ability to use controls, but we will list a few commonly used UserForm events anyway.
+
+The `Initialize` event triggers code when the UserForm is launched.
+
+```VBA
+Private Sub UserForm_Initialize()
+
+End Sub
+```
+
+The `Click` event triggers code when the UserForm is clicked on.
+
+```VBA
+Private Sub UserForm_Click()
+
+End Sub
+```
+
+The `Terminate` event triggers code when the UserForm is terminated.
+
+```VBA
+Private Sub UserForm_Terminate()
+
+End Sub
+```
+
+#### Launching
+
+We can of course use the IDE or a button in the sheet to launch a UserForm. We can also use the `Show` method to launch a UserForm from within a subroutine.
+
+```VBA
+Sub example()
+	UserFormName.Show
+End Sub
+```
+
+### Controls
+
+All 14 available controls are available via the Toolbox window and can be placed anywhere in the UserForm. In this section we will only discuss the Label, TextBox, CommandButton, CheckBox and OptionButton controls. See [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/objects-microsoft-forms#controls) for more details on the rest of the controls.
+
+We will also discuss some commonly used events and examples to add functionality to controls. As usual, all possible events can be viewed in the IDE via the second dropdown menu.
+
+#### Label
+
+The Label control displays text. The `Visible` property can be used to determine the visibility of the text. For example, it could be used to display an error message under certain conditions. Events are typically not associated with this control.
+
+```VBA
+labelName.Visible = True
+```
+
+#### TextBox
+
+The TextBox control displays information entered by the user. The `Value` property can be used to access the information entered into the TextBox.
+
+```VBA
+' Stores the value of textboxName in the A1 cell.
+Range("A1") = textboxName.Value
+```
+
+The `Change` event triggers code each time the contents of the TextBox control is changed.
+
+```VBA
+Private Sub textboxName_Change()
+
+End Sub
+```
+
+#### CommandButton
+
+The CommandButton control starts, ends, or interrupts an action or series of actions. The `Click` event triggers code when the CommandButton control is clicked.
+
+```VBA
+Private Sub commandbuttonName_Click()
+
+End Sub
+```
+
+The following example ties together the Label, TextBox and CommandButton controls:
+
+```VBA
+' This example is for a UserForm which asks the user to enter a numerical value.
+
+
+' Displays labelError if the value in textboxNumerical is not a number.
+Private Sub textboxNumerical_Change()
+	If IsNumeric(textboxNumerical.Value) Then
+		labelError.Visible = False
+	Else
+		labelError.Visible = True
+	End If
+End Sub
+
+' Checks that the the value entered into textboxNumerical is a number when buttonSubmit is clicked.
+' If the value is a number, then it is stored in the A1 cell. Otherwise, a dialog box is shown.
+Private Sub buttonSubmit_Click()
+	If IsNumeric(textboxNumerical.Value) Then
+		Range("A1") = textboxNumerical.Value
+		Unload Me ' Closes the UserForm.
+	Else
+		MsgBox("Incorrect value.")
+	End If
+End Sub
+```
+
+#### CheckBox
+
+The CheckBox control displays the selection status of an item. The `Value` property can be used to access the status of the CheckBox control. The `Click` event triggers code when the CheckBox control is clicked.
+
+The following example combines the `Value` property with the `Click` event:
+
+```VBA
+' Stores the status of checkboxExample in the A1 cell.
+Private Sub checkboxExample_Click()
+	If checkboxExample.Value = True Then
+		Range("A1") = "Checked"
+	Else
+		Range("A1") = "Unchecked"
+	End If
+End Sub
+```
+
+#### OptionButton
+
+The OptionButton control displays the status of one item in a group of choices. Similar to the CheckBox control, the `Value` property can be used to access the status of the OptionButton control, and the `Click` event triggers code when the OptionButton control is clicked.
+
+The usage and syntax are similar, with the exception that only one OptionButton per group can be selected by the user. To create groups, the Frame control must first be placed before any OptionButton controls can be placed. Multiple Frame controls can be used to create multiple groups of OptionButton controls.
+
+The `Controls` property of the Frame control returns the collection contained within the group. The following example makes use of this:
+
+```VBA
+' Enters text into a cell based on the user's choice.
+Private Sub buttonConfirm_Click()
+	Dim columnValue As String, rowValue As String
+	
+	' Iterates through each OptionButton in the Column group.
+	For Each optionbuttonColumn In frameColumn.Controls
+		If optionbuttonColumn.Value = True Then
+			columnValue = optionbuttonColumn.Caption
+		End If
+	Next
+
+	' Iterates through each OptionButton in the Row group.
+	For Each optionbuttonRow In frameRow.Controls
+		If optionbuttonRow.Value = True Then
+			rowValue = optionbuttonRow.Caption
+		End If
+	Next
+
+	Range(columnValue & rowValue) = "Cell chosen"
+	Unload Me
+End Sub
+```
