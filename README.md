@@ -605,7 +605,7 @@ Also like normal functions in a typical programming language, subroutines can al
 
 ```VBA
 Sub subroutine1(variableName1 As Type1, variableName2 As Type2, variableName3 As Type3)
-	statement ' This can be dependent on variableName1, variableName2 and variableName3.
+	statement ' This can be dependent on variableName1, variableName2 and variableName3
 End Sub
 
 Sub subroutine2()
@@ -617,7 +617,7 @@ By default, if a subroutine accepts arguments, then they are not optional - a su
 
 ```VBA
 Sub subroutine1(variableName1 As Type1, Optional variableName2 As Type2, Optional variableName3 As Type3)
-	statement ' This can be dependent on variableName1, variableName2 and variableName3.
+	statement ' This can be dependent on variableName1, variableName2 and variableName3
 End Sub
 
 Sub subroutine2()
@@ -1046,7 +1046,6 @@ The following example ties together the Label, TextBox and CommandButton control
 ```VBA
 ' This example is for a UserForm which asks the user to enter a numerical value.
 
-
 ' Displays labelError if the value in textboxNumerical is not a number.
 Private Sub textboxNumerical_Change()
 	If IsNumeric(textboxNumerical.Value) Then
@@ -1061,7 +1060,7 @@ End Sub
 Private Sub buttonSubmit_Click()
 	If IsNumeric(textboxNumerical.Value) Then
 		Range("A1") = textboxNumerical.Value
-		Unload Me ' Closes the UserForm.
+		Unload Me ' Closes the UserForm
 	Else
 		MsgBox("Incorrect value.")
 	End If
@@ -1113,6 +1112,6 @@ Private Sub buttonConfirm_Click()
 	Next
 
 	Range(columnValue & rowValue) = "Cell chosen"
-	Unload Me ' Closes the UserForm.
+	Unload Me ' Closes the UserForm
 End Sub
 ```
