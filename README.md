@@ -657,11 +657,9 @@ Sub test()
 	calculateSquare1 testNumber1
 	calculateSquare2 testNumber2
 
-	' Prints 400.
-	Debug.Print(testNumber1)
-	
-	' Prints 20.
-	Debug.Print(testNumber2)
+	Debug.Print(testNumber1)  ' Prints 400
+
+	Debug.Print(testNumber2)  ' Prints 20
 End Sub
 ```
 
@@ -681,8 +679,7 @@ End Function
 Sub test()
 	result = calculateSquare(20)
 
-	' Prints 400.
-	Debug.Print(result)
+	Debug.Print(result)  ' Prints: 400
 End Sub
 ```
 
