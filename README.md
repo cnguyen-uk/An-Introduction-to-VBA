@@ -1060,7 +1060,7 @@ End Sub
 Private Sub buttonSubmit_Click()
 	If IsNumeric(textboxNumerical.Value) Then
 		Range("A1") = textboxNumerical.Value
-		Unload Me ' Closes the UserForm
+		Unload Me  ' Closes the UserForm
 	Else
 		MsgBox("Incorrect value.")
 	End If
@@ -1112,6 +1112,6 @@ Private Sub buttonConfirm_Click()
 	Next
 
 	Range(columnValue & rowValue) = "Cell chosen"
-	Unload Me ' Closes the UserForm
+	Unload Me  ' Closes the UserForm
 End Sub
 ```
