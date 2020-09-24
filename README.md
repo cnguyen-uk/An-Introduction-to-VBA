@@ -22,8 +22,8 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
     + [Borders](#borders)
     + [The `With` Statement](#the-with-statement)
   * [Colours](#colours)
-    + [`ColorIndex`](#colorindex)
-    + [`Color`](#color)
+    + [The `ColorIndex` Property](#the-colorindex-property)
+    + [The `Color` Property](#the-color-property)
 - [Variables and Types](#variables-and-types)
   * [Types](#types)
   * [Variables](#variables)
@@ -334,7 +334,7 @@ In the previous section we looked at the `Font` and `Border` properties. These p
 
 Colours can be set either by using the `ColorIndex` property, which is preferred on versions of Excel older than 2007, or the `Color` property, which provides the full range of colours. Both of these are properties of the Font, Border, and Interior objects, and also the `Tab` property.
 
-#### `ColorIndex`
+#### The `ColorIndex` Property
 
 Unfortunately, the `ColorIndex` property is limited to only 56 colours, and depends on the colour theme of the application. The colour-index values for the default colour theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex#remarks).
 
@@ -350,7 +350,7 @@ Range("B3:B9").Border.ColorIndex = 4
 Sheets("Sheet7").Tab.ColorIndex = 45
 ```
 
-#### `Color`
+#### The `Color` Property
 
 Using the `Color` property is similar to using the `ColorIndex` property, except it uses RGB colour codes. Attempting to use this on versions of Excel older than 2007 will result in an approximate colour being chosen from the colour palette of 56 colours.
 
