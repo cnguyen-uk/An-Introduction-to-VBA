@@ -82,9 +82,9 @@ Generally, VBA code to be run is contained within *subroutines* (also called *pr
 
 ```VBA
 Sub macroName()
-	' This is a comment.
-	statement1
-	statement2
+    ' This is a comment.
+    statement1
+    statement2
 End Sub
 ```
 
@@ -126,7 +126,7 @@ To print to the Immediate window, we can use the `Print()` method:
 
 ```VBA
 Sub helloWorld()
-	Debug.Print("Hello World!")
+    Debug.Print("Hello World!")
 End Sub
 ```
 
@@ -306,11 +306,11 @@ We can reduce repeated code by using the `With` statement.
 
 ```VBA
 With Range("B3:B9")
-	.Borders.Weight = 3
-	.Font.Bold = True
-	.Font.Size = 18
-	.Font.Italic = True
-	.Font.Name = "Arial"
+    .Borders.Weight = 3
+    .Font.Bold = True
+    .Font.Size = 18
+    .Font.Italic = True
+    .Font.Name = "Arial"
 End With
 ```
 
@@ -318,13 +318,13 @@ We can even go further and reduce on the repetition of `.Font`.
 
 ```VBA
 With Range("B3:B9")
-	.Borders.Weight = 3
-	With .Font
-		.Bold = True
-		.Size = 18
-		.Italic = True
-		.Name = "Arial"
-	End With
+    .Borders.Weight = 3
+    With .Font
+        .Bold = True
+        .Size = 18
+        .Italic = True
+        .Name = "Arial"
+    End With
 End With
 ```
 
@@ -398,11 +398,11 @@ We can declare variables at the beginning of a module to allow usage within the 
 Dim variableName As Type
 
 Sub numberOne()
-	' We can use variableName here.
+    ' We can use variableName here.
 End Sub
 
 Sub numberTwo()
-	' We can also use variableName here.
+    ' We can also use variableName here.
 End Sub
 ```
 
@@ -416,7 +416,7 @@ The `Static` statement can be used to allow the value of a variable to persist.
 
 ```VBA
 Sub numberOne()
-	Static variableName As Type
+    Static variableName As Type
 End Sub
 ```
 
@@ -424,7 +424,7 @@ We can also allow the value of all variables within a subroutine to persist.
 
 ```VBA
 Static Sub numberOne()
-	Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
+    Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
 End Sub
 ```
 
@@ -446,11 +446,11 @@ As usual, a block of code is executed given that a condition is true.
 
 ```VBA
 If condition1 Then
-	statement1
+    statement1
 ElseIf condition2 Then
-	statement2
+    statement2
 Else
-	statement3
+    statement3
 End If
 ```
 
@@ -462,11 +462,11 @@ We can use a `Select Case` statement to handle cases more elegantly.
 Dim x As Integer
 Select Case x
 Case Is = 5
-	xComment = "This is the maximum achievable!"
+    xComment = "This is the maximum achievable!"
 Case Is = 4
-	xComment = "This is almost the maximum achievable!"
+    xComment = "This is almost the maximum achievable!"
 Case Else
-	xComment = "This is quite average"
+    xComment = "This is quite average"
 End Select
 ```
 
@@ -497,7 +497,7 @@ The basic syntax for a `While` loop is as follows:
 
 ```VBA
 While condition
-	statement
+    statement
 Wend
 ```
 
@@ -507,25 +507,25 @@ VBA has four different syntaxes for do loops. These loops will repeat a block of
 
 ```VBA
 Do While condition
-	statement
+    statement
 Loop
 ```
 
 ```VBA
 Do
-	statement
+    statement
 Loop While condition
 ```
 
 ```VBA
 Do Until condition
-	statement
+    statement
 Loop
 ```
 
 ```VBA
 Do
-	statement
+    statement
 Loop Until condition
 ```
 
@@ -535,7 +535,7 @@ The basic syntax for a `For` loop is as follows:
 
 ```VBA
 For i = startNumber To endNumber
-	statement
+    statement
 Next
 ```
 
@@ -545,7 +545,7 @@ The basic syntax for a `For Each` loop is as follows:
 
 ```VBA
 For Each item In collection
-	statement
+    statement
 Next
 ```
 
@@ -555,7 +555,7 @@ We have already seen in the Introduction section that VBA code to be run is cont
 
 ```VBA
 Sub macroName()
-	statement
+    statement
 End Sub
 ```
 
@@ -567,13 +567,13 @@ A Public subroutine is one which can be accessed from any module. This can be sp
 
 ```VBA
 Public Sub example()
-	statement
+    statement
 End Sub
 ```
 
 ```VBA
 Sub example()
-	statement
+    statement
 End Sub
 ```
 
@@ -581,7 +581,7 @@ A Private subroutine is one which can only be accessed from within the module in
 
 ```VBA
 Private Sub example()
-	statement
+    statement
 End Sub
 ```
 
@@ -591,11 +591,11 @@ Much like normal functions in a typical programming language, subroutines can be
 
 ```VBA
 Sub subroutine1()
-	statement
+    statement
 End Sub
 
 Sub subroutine2()
-	subroutine1
+    subroutine1
 End Sub
 ```
 
@@ -605,11 +605,11 @@ Also like normal functions in a typical programming language, subroutines can al
 
 ```VBA
 Sub subroutine1(variableName1 As Type1, variableName2 As Type2, variableName3 As Type3)
-	statement ' This can be dependent on variableName1, variableName2 and variableName3
+    statement ' This can be dependent on variableName1, variableName2 and variableName3
 End Sub
 
 Sub subroutine2()
-	subroutine1 someArgument1, someArgument2, someArgument3
+    subroutine1 someArgument1, someArgument2, someArgument3
 End Sub
 ```
 
@@ -617,14 +617,14 @@ By default, if a subroutine accepts arguments, then they are not optional - a su
 
 ```VBA
 Sub subroutine1(variableName1 As Type1, Optional variableName2 As Type2, Optional variableName3 As Type3)
-	statement ' This can be dependent on variableName1, variableName2 and variableName3
+    statement ' This can be dependent on variableName1, variableName2 and variableName3
 End Sub
 
 Sub subroutine2()
-	' All of the following subroutine calls are valid:
-	subroutine1 someArgument1
-	subroutine1 someArgument1, someArgument2
-	subroutine1 someArgument1, someArgument2, someArgument3
+    ' All of the following subroutine calls are valid:
+    subroutine1 someArgument1
+    subroutine1 someArgument1, someArgument2
+    subroutine1 someArgument1, someArgument2, someArgument3
 End Sub
 ```
 
@@ -641,25 +641,25 @@ The differences are best demonstrated by example.
 ```VBA
 ' Creates two subroutines which squares numbers, with different pass bys.
 Sub calculateSquare1(ByRef number As Integer)
-	number = number * number
+    number = number * number
 End Sub
 
 Sub calculateSquare2(ByVal number As Integer)
-	number = number ^ 2
+    number = number ^ 2
 End Sub
 
 ' Tests the two subroutines.
 Sub test()
-	Dim testNumber1 As Integer, testNumber2 As Integer
-	testNumber1 = 20
-	testNumber2 = 20
-	
-	calculateSquare1 testNumber1
-	calculateSquare2 testNumber2
+    Dim testNumber1 As Integer, testNumber2 As Integer
+    testNumber1 = 20
+    testNumber2 = 20
 
-	Debug.Print(testNumber1)  ' Prints: 400
+    calculateSquare1 testNumber1
+    calculateSquare2 testNumber2
 
-	Debug.Print(testNumber2)  ' Prints: 20
+    Debug.Print(testNumber1)  ' Prints: 400
+
+    Debug.Print(testNumber2)  ' Prints: 20
 End Sub
 ```
 
@@ -672,14 +672,14 @@ In VBA, subroutines and functions are similar, except functions must return a va
 ```VBA
 ' Creates a function which squares numbers.
 Function calculateSquare(number As Integer)
-	calculateSquare = number ^ 2
+    calculateSquare = number ^ 2
 End Function
 
 ' Tests the calculateSquare function.
 Sub test()
-	result = calculateSquare(20)
+    result = calculateSquare(20)
 
-	Debug.Print(result)  ' Prints: 400
+    Debug.Print(result)  ' Prints: 400
 End Sub
 ```
 
@@ -877,16 +877,16 @@ End Sub
 The `Activate` event triggers code each time the sheet is activated.
 
 ```VBA
-Private Sub Worksheet_Activate()  
-  
+Private Sub Worksheet_Activate()
+
 End Sub
 ```
 
 The `Deactivate` event triggers code each time the sheet is deactivated.
 
 ```VBA
-Private Sub Worksheet_Deactivate()  
-  
+Private Sub Worksheet_Deactivate()
+
 End Sub
 ```
 
@@ -993,7 +993,7 @@ We can of course use the IDE or a button in the sheet to launch a UserForm. We c
 
 ```VBA
 Sub example()
-	UserFormName.Show
+    UserFormName.Show
 End Sub
 ```
 
@@ -1045,22 +1045,22 @@ The following example ties together the Label, TextBox and CommandButton control
 
 ' Displays labelError if the value in textboxNumerical is not a number.
 Private Sub textboxNumerical_Change()
-	If IsNumeric(textboxNumerical.Value) Then
-		labelError.Visible = False
-	Else
-		labelError.Visible = True
-	End If
+    If IsNumeric(textboxNumerical.Value) Then
+        labelError.Visible = False
+    Else
+        labelError.Visible = True
+    End If
 End Sub
 
 ' Checks that the value entered into textboxNumerical is a number when buttonSubmit is clicked.
 ' If the value is a number, then it is stored in the A1 cell. Otherwise, a dialog box is shown.
 Private Sub buttonSubmit_Click()
-	If IsNumeric(textboxNumerical.Value) Then
-		Range("A1") = textboxNumerical.Value
-		Unload Me  ' Closes the UserForm
-	Else
-		MsgBox("Incorrect value.")
-	End If
+    If IsNumeric(textboxNumerical.Value) Then
+        Range("A1") = textboxNumerical.Value
+        Unload Me  ' Closes the UserForm
+    Else
+        MsgBox("Incorrect value.")
+    End If
 End Sub
 ```
 
@@ -1073,11 +1073,11 @@ The following example combines the `Value` property with the `Click` event:
 ```VBA
 ' Stores the status of checkboxExample in the A1 cell.
 Private Sub checkboxExample_Click()
-	If checkboxExample.Value = True Then
-		Range("A1") = "Checked"
-	Else
-		Range("A1") = "Unchecked"
-	End If
+    If checkboxExample.Value = True Then
+        Range("A1") = "Checked"
+    Else
+        Range("A1") = "Unchecked"
+    End If
 End Sub
 ```
 
@@ -1092,23 +1092,23 @@ The `Controls` property of the Frame control returns the collection contained wi
 ```VBA
 ' Enters text into a cell based on the user's choice.
 Private Sub buttonConfirm_Click()
-	Dim columnValue As String, rowValue As String
-	
-	' Iterates through each OptionButton in the Column group.
-	For Each optionbuttonColumn In frameColumn.Controls
-		If optionbuttonColumn.Value = True Then
-			columnValue = optionbuttonColumn.Caption
-		End If
-	Next
+    Dim columnValue As String, rowValue As String
 
-	' Iterates through each OptionButton in the Row group.
-	For Each optionbuttonRow In frameRow.Controls
-		If optionbuttonRow.Value = True Then
-			rowValue = optionbuttonRow.Caption
-		End If
-	Next
+    ' Iterates through each OptionButton in the Column group.
+    For Each optionbuttonColumn In frameColumn.Controls
+        If optionbuttonColumn.Value = True Then
+            columnValue = optionbuttonColumn.Caption
+        End If
+    Next
 
-	Range(columnValue & rowValue) = "Cell chosen"
-	Unload Me  ' Closes the UserForm
+    ' Iterates through each OptionButton in the Row group.
+    For Each optionbuttonRow In frameRow.Controls
+        If optionbuttonRow.Value = True Then
+            rowValue = optionbuttonRow.Caption
+        End If
+    Next
+
+    Range(columnValue & rowValue) = "Cell chosen"
+    Unload Me  ' Closes the UserForm
 End Sub
 ```
