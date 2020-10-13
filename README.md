@@ -148,14 +148,13 @@ In particular, VBA contains the [`Sheets` object](https://docs.microsoft.com/en-
 The `Select` method can be used to select a cell, or multiple cells, in the current sheet.
 
 ```VBA
-' Selects cells H1 and D8.
-Range("H1, D8").Select
+Range("H1, D8").Select  ' Select cells H1 and D8
 ```
 
 We can also select cells in sheets other than the current one by using the `Activate` method.
 
 ```VBA
-' Selects cells G2, J9 and P10 in Sheet5.
+' This statement selects cells G2, J9 and P10 in Sheet5.
 Sheets("Sheet5").Activate
 Range("G2, J9, P10").Select
 ```
@@ -163,21 +162,19 @@ Range("G2, J9, P10").Select
 Instead of creating a Range object by selecting cells individually within the `Range` property, we can select a range of them, or even a range that has been renamed.
 
 ```VBA
-' Selects cells A1 to A5.
-Range("A1:A5").Select
+Range("A1:A5").Select  ' Select cells A1 to A5
 
-' Selects cells from the namedRange range.
-Range("namedRange").Select
+Range("namedRange").Select  ' Select cells from the namedRange range
 ```
 
 Similarly, we can select entire rows or columns by using the `Rows` or `Columns` properties, respectively. Alternatively, we can still use the `Range` property.
 
 ```VBA
-' Selects rows 2 to 7.
+' Both of the following statements will select rows 2 to 7:
 Range("2:7").Select
 Rows("2:7").Select
 
-' Selects columns B to H.
+' Both of the following statements will select columns B to H:
 Range("B:H").Select
 Columns("B:H").Select
 ```
@@ -185,15 +182,13 @@ Columns("B:H").Select
 Quite often we will want to be able to dynamically select cells, rather than a particular one. For example, we may want to select the *n*th row in the *m*th column, where *n* and *m* depend on what's happened in the module. To do this, we can use the `Cells` property.
 
 ```VBA
-' Selects the cell in row 4, column 7.
-Cells(4, 7).Select
+Cells(4, 7).Select  ' Select the cell in row 4, column 7
 ```
 
 The `Offset` property can be used to move a selection.
 
 ```VBA
-' Moves the selected cell down 2, right 7.
-ActiveCell.Offset(2, 7).Select
+ActiveCell.Offset(2, 7).Select  ' Move the selected cell down 2, right 7
 ```
 
 ### Properties
@@ -205,42 +200,38 @@ VBA uses *dot notation* to denote hierarchy when manipulating an object. For exa
 The `Value` property represents the contents of a cell. This can be used to change the contents of a cell.
 
 ```VBA
-' Sets the value of cell B3 to 19.
-Range("B3").Value = 19
+Range("B3").Value = 19  ' Set the value of cell B3 to 19
 
-' Sets the value of cell D9 to the string "This is some text".
-Range("D9").Value = "This is some text"
+Range("D9").Value = "Text"  ' Set the value of cell D9 to the string "Text"
 ```
 
 Of course, we can use dot notation to change the contents of cells in more specific locations.
 
 ```VBA
-' Sets the value of cell B3 in Sheet2 of another open workbook to 19.
+' This statement sets the value of cell B3 in Sheet2 of another open
+' workbook to 19:
 Workbook("Book5.xlsx").Sheets("Sheet2").Range("B3").Value = 19
 ```
 
 Note that not using the `Value` property would have the same effect, since if no other property is specified, then the value of the cell is modified by default.
 
 ```VBA
-' Sets the value of cell B3 to 19.
-Range("B3") = 19
+Range("B3") = 19  ' Set the value of cell B3 to 19
 ```
 
 Of course, it is also possible to change the value (or any other property, such as font size) of a cell based on another cell, or even itself.
 
 ```VBA
-' Sets the value of cell B3 to the value of cell A1.
-Range("B3") = Range("Al")
 
-' Increases the value of cell D2 by 1, every time the macro is run.
-Range("D2") = Range("D2") + 1
+Range("B3") = Range("Al")  ' Set the value of cell B3 to the value of cell A1
+
+Range("D2") = Range("D2") + 1  ' Increase the value of cell D2 by 1
 ```
 
 The `ClearContents` method can be used to erase the contents of a cell.
 
 ```VBA
-' Erases the contents of cell B3.
-Range("B3").ClearContents
+Range("B3").ClearContents  ' Erase the contents of cell B3
 ```
 
 #### Text Formatting
@@ -250,28 +241,23 @@ To format text we will access the `Font` property. Within the IDE simply typing 
 The `Size` property can be used to change the text size.
 
 ```VBA
-' Formats the contents of cell B3 to have font size 18.
-Range("B3").Font.Size = 18
+Range("B3").Font.Size = 18  ' Format cell B3's contents to font size 18
 ```
 
 The `Bold`, `Italic`, and `Underline` properties can be used to give text the bold, italic, and underline emphasis, respectively.
 
 ```VBA
-' Formats the contents of cell B3 to be in bold.
-Range("B3").Font.Bold = True
+Range("B3").Font.Bold = True  ' Bold the contents of cell B3
 
-' Formats the contents of cell D6 to be in italics.
-Range("D6").Font.Italics = True
+Range("D6").Font.Italics = True  ' Italicize the contents of cell D6
 
-' Formats the contents of cell A1 to be underlined.
-Range("A1").Font.Underline = True
+Range("A1").Font.Underline = True  ' Underline the contents of cell A1
 ```
 
 The `Name` property can be used to set the font style.
 
 ```VBA
-' Formats the contents of cell B3 to have the Arial font.
-Range("B3").Font.Name = "Arial"
+Range("B3").Font.Name = "Arial"  ' Format cell B3's contents to Arial font
 ```
 
 #### Borders
@@ -280,14 +266,11 @@ Here are a couple of other commonly used properties.
 The `Borders` property can be used to add a border to cells. Similar to the `Font` property, we can use the IDE to reveal a list of properties belonging to the `Borders` property.
 
 ```VBA
-' Adds a border to cells B3 to B9.
-Range("B3:B9").Borders.Value = 1
+Range("B3:B9").Borders.Value = 1  ' Add a border to cells B3 to B9
 
-' Makes the borders as thick as possible.
-Range("B3:B9").Borders.Weight = 4
+Range("B3:B9").Borders.Weight = 4  ' Make the borders as thick as possible
 
-' Removes borders from cell A2.
-Range("A2").Borders.Value = 0
+Range("A2").Borders.Value = 0  ' Remove borders from cell A2
 ```
 
 #### The `With` Statement
@@ -339,15 +322,14 @@ Colours can be set either by using the `ColorIndex` property, which is preferred
 Unfortunately, the `ColorIndex` property is limited to only 56 colours, and depends on the colour theme of the application. The colour-index values for the default colour theme can be seen [here](https://docs.microsoft.com/en-us/office/vba/api/excel.colorindex#remarks).
 
 ```VBA
-' Sets the colour of the B3 cell to blue, and the font to white.
+' The following statement sets the colour of the B3 cell to blue, and
+' the font to white:
 Range("B3").Interior.ColorIndex = 5
 Range("B3").Font.ColorIndex = 2
 
-' Adds a green border to the B3 to B9 cells.
-Range("B3:B9").Border.ColorIndex = 4
+Range("B3:B9").Border.ColorIndex = 4  ' Add a green border to cells B3 to B9
 
-' Sets the colour of the Sheet7 tab to orange.
-Sheets("Sheet7").Tab.ColorIndex = 45
+Sheets("Sheet7").Tab.ColorIndex = 45  ' Set the colour of tab Sheet7 to orange
 ```
 
 #### The `Color` Property
@@ -355,14 +337,15 @@ Sheets("Sheet7").Tab.ColorIndex = 45
 Using the `Color` property is similar to using the `ColorIndex` property, except it uses RGB colour codes. Attempting to use this on versions of Excel older than 2007 will result in an approximate colour being chosen from the colour palette of 56 colours.
 
 ```VBA
-' Sets the colour of the B3 cell to blue, and the font to white.
+' The following statement sets the colour of the B3 cell to blue, and
+' the font to white:
 Range("B3").Interior.Color = RGB(0, 0, 255)
 Range("B3").Font.Color = RGB(255, 255, 255)
 
-' Adds a green border to the B3 to B9 cells.
+' This statement adds a green border to cells B3 to B9.
 Range("B3:B9").Border.Color = RGB(0, 255, 0)
 
-' Sets the colour of the Sheet7 tab to orange.
+' This statement sets the colour of tab Sheet7 to orange.
 Sheets("Sheet7").Tab.Color = RGB(255, 128, 0)
 ```
 
@@ -604,27 +587,26 @@ End Sub
 Also like normal functions in a typical programming language, subroutines can also accept arguments, with the usual [variable scope](#variable-scope) rules applying.
 
 ```VBA
-Sub subroutine1(variableName1 As Type1, variableName2 As Type2, variableName3 As Type3)
-    statement ' This can be dependent on variableName1, variableName2 and variableName3
+Sub subroutine1(variableName1 As Type1, variableName2 As Type2)
+    statement  ' Can be dependent on variableName1 and variableName2
 End Sub
 
 Sub subroutine2()
-    subroutine1 someArgument1, someArgument2, someArgument3
+    subroutine1 someArgument1, someArgument2
 End Sub
 ```
 
 By default, if a subroutine accepts arguments, then they are not optional - a subroutine called without the correct number of arguments will fail to execute. The `Optional` keyword can be used to specify optional arguments, but these must be specified after any non-optional arguments.
 
 ```VBA
-Sub subroutine1(variableName1 As Type1, Optional variableName2 As Type2, Optional variableName3 As Type3)
-    statement ' This can be dependent on variableName1, variableName2 and variableName3
+Sub subroutine1(variableName1 As Type1, Optional variableName2 As Type2)
+    statement ' Can be dependent on variableName1 and variableName2
 End Sub
 
 Sub subroutine2()
     ' All of the following subroutine calls are valid:
     subroutine1 someArgument1
     subroutine1 someArgument1, someArgument2
-    subroutine1 someArgument1, someArgument2, someArgument3
 End Sub
 ```
 
@@ -639,7 +621,9 @@ When passing arguments to a subroutine, we can choose to pass them either by val
 The differences are best demonstrated by example.
 
 ```VBA
-' Creates two subroutines which squares numbers, with different pass bys.
+' Below, two subroutines which square numbers have been created, but
+' with different pass bys.
+
 Sub calculateSquare1(ByRef number As Integer)
     number = number * number
 End Sub
@@ -648,7 +632,7 @@ Sub calculateSquare2(ByVal number As Integer)
     number = number ^ 2
 End Sub
 
-' Tests the two subroutines.
+' This subroutine tests the above two subroutines.
 Sub test()
     Dim testNumber1 As Integer, testNumber2 As Integer
     testNumber1 = 20
@@ -657,9 +641,9 @@ Sub test()
     calculateSquare1 testNumber1
     calculateSquare2 testNumber2
 
-    Debug.Print(testNumber1)  ' Prints: 400
+    Debug.Print(testNumber1)  ' Print: 400
 
-    Debug.Print(testNumber2)  ' Prints: 20
+    Debug.Print(testNumber2)  ' Print: 20
 End Sub
 ```
 
@@ -670,16 +654,16 @@ Deciding between passing by value or passing by reference depends on both variab
 In VBA, subroutines and functions are similar, except functions must return a value. Using the function name within the function itself is used to determine the return value. Subroutines and functions can be called inside of each other, but function calls should have arguments enclosed in `( )`.
 
 ```VBA
-' Creates a function which squares numbers.
+' This function squares numbers.
 Function calculateSquare(number As Integer)
     calculateSquare = number ^ 2
 End Function
 
-' Tests the calculateSquare function.
+' This subroutine tests the calculateSquare function.
 Sub test()
     result = calculateSquare(20)
 
-    Debug.Print(result)  ' Prints: 400
+    Debug.Print(result)  ' Print: 400
 End Sub
 ```
 
@@ -709,9 +693,9 @@ MsgBox("Do you feel happy?", vbYesNo, "Mood Check")
 MsgBox("Do you feel happy?", 4, "Mood Check")
 
 ' The following three lines produce the same dialog box:
-MsgBox("Delete all contents?", vbYesNoCancel + vbExclamation + vbDefaultButton2 + vbSystemModal, "Confirmation")
-MsgBox("Delete all contents?", 3 + 48 + 256 + 4096, "Confirmation")
-MsgBox("Delete all contents?", 4403, "Confirmation")
+MsgBox("Delete all contents?", vbYesNoCancel + vbExclamation, "Confirmation")
+MsgBox("Delete all contents?", 3 + 48, "Confirmation")
+MsgBox("Delete all contents?", 51, "Confirmation")
 ```
 
 The `MsgBox()` function also returns values, which can be referred to using the following syntax:
@@ -756,7 +740,8 @@ The `BeforeClose` event triggers code immediately before the workbook is closed.
 
 ```VBA
 Private Sub Workbook_BeforeClose(Cancel As Boolean)
-' The Cancel variable can be set to True to cancel the closing of the workbook.
+' The Cancel variable can be set to True to cancel the closing
+' of the workbook.
 End Sub
 ```
 
@@ -764,8 +749,11 @@ The `BeforeSave` event triggers code immediately before the workbook is saved.
 
 ```VBA
 Private Sub Workbook_BeforeSave(ByVal SaveAsUI As Boolean, Cancel As Boolean)
-' The SaveAsUI variable returns True if the Save As dialog box was displayed.
-' The Cancel variable can be set to True to cancel the saving of the workbook.
+' The SaveAsUI variable returns True if the Save As dialog box
+' was displayed.
+'
+' The Cancel variable can be set to True to cancel the saving
+' of the workbook.
 End Sub
 ```
 
@@ -773,7 +761,8 @@ The `AfterSave` event triggers code immediately after the workbook is saved.
 
 ```VBA
 Private Sub Workbook_AfterSave(ByVal Success As Boolean)
-' The Success variable returns True if the save operation was successful.
+' The Success variable returns True if the save operation
+' was successful.
 End Sub
 ```
 
@@ -781,7 +770,8 @@ The `BeforePrint` event triggers code immediately before anything in the workboo
 
 ```VBA
 Private Sub Workbook_BeforePrint(Cancel As Boolean)
-' The Cancel variable can be set to True to cancel the printing of anything in the workbook.
+' The Cancel variable can be set to True to cancel the printing of
+' anything in the workbook.
 End Sub
 ```
 
@@ -798,8 +788,12 @@ The `SheetBeforeDoubleClick` event triggers code immediately before a double-cli
 ```VBA
 Private Sub Workbook_SheetBeforeDoubleClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
 ' The Sh Worksheet object is the double-clicked worksheet.
-' The Target Range object is the cell nearest to the mouse pointer when the double-click occurred.
-' The Cancel variable can be set to True to cancel the default double-click action.
+'
+' The Target Range object is the cell nearest to the mouse pointer when
+' the double-click occurred.
+'
+' The Cancel variable can be set to True to cancel the default
+' double-click action.
 End Sub
 ```
 
@@ -808,8 +802,12 @@ The `SheetBeforeRightClick` event triggers code immediately before a right-click
 ```VBA
 Private Sub Workbook_SheetBeforeRightClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
 ' The Sh Worksheet object is the right-clicked worksheet.
-' The Target Range object is the cell nearest to the mouse pointer when the right-click occurred.
-' The Cancel variable can be set to True to cancel the default right-click action.
+'
+' The Target Range object is the cell nearest to the mouse pointer when
+' the right-click occurred.
+'
+' The Cancel variable can be set to True to cancel the default
+' right-click action.
 End Sub
 ```
 
@@ -826,6 +824,7 @@ The `SheetChange` event triggers code each time the contents of a cell in any wo
 ```VBA
 Private Sub Workbook_SheetChange(ByVal Sh As Object, ByVal Target As Range)
 ' The Sh Worksheet object is the modified worksheet.
+'
 ' The Target Range object is the changed range.
 End Sub
 ```
@@ -834,7 +833,9 @@ The `SheetSelectionChange` event triggers code each time the selection changes o
 
 ```VBA
 Private Sub Workbook_SheetSelectionChange(ByVal Sh As Object, ByVal Target As Range)
-' The Sh Worksheet object is the worksheet containing the new selection.
+' The Sh Worksheet object is the worksheet containing the
+' new selection.
+'
 ' The Target Range object is the new selected range.
 End Sub
 ```
@@ -851,7 +852,8 @@ The `SheetFollowHyperlink` event triggers code each time a hyperlink is clicked.
 
 ```VBA
 Private Sub Workbook_SheetFollowHyperlink(ByVal Sh As Object, ByVal Target As Hyperlink)
-' The Sh Worksheet object is the worksheet that contains the hyperlink.
+' The Sh Worksheet object is the worksheet containing the hyperlink.
+'
 ' The Target Hyperlink object is the destination of the hyperlink.
 End Sub
 ```
@@ -894,8 +896,11 @@ The `BeforeDoubleClick` event triggers code immediately before a double-click on
 
 ```VBA
 Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
-' The Target Range object is the cell nearest to the mouse pointer when the double-click occurred.
-' The Cancel variable can be set to True to cancel the default double-click action.
+' The Target Range object is the cell nearest to the mouse pointer
+' when the double-click occurred.
+'
+' The Cancel variable can be set to True to cancel the default
+' double-click action.
 End Sub
 ```
 
@@ -903,8 +908,11 @@ The `BeforeRightClick` event triggers code immediately before a right-click on a
 
 ```VBA
 Private Sub Worksheet_BeforeRightClick(ByVal Target As Range, Cancel As Boolean)
-' The Target Range object is the cell nearest to the mouse pointer when the right-click occurred.
-' The Cancel variable can be set to True to cancel the default right-click action.
+' The Target Range object is the cell nearest to the mouse pointer when
+' the right-click occurred.
+'
+' The Cancel variable can be set to True to cancel the default
+' right-click action.
 End Sub
 ```
 
@@ -953,9 +961,9 @@ Similar to workbook and worksheet events, we will be using events associated wit
 ### UserForms
 
 To insert a new UserForm module we can use the Project Explorer. Doing this will open the UserForm window from which we can open the following relevant windows:
-* Properties window: allows for the modification of the UserForm's properties, such as appearance, behaviour and font. Open this via the right-click menu.
-* Toolbox window: allows for the addition of controls. Opens automatically.
-* IDE window: allows for VBA code triggered by events, to be attached to the UserForm. Open this by double-clicking the UserForm.
+- Properties window: allows for the modification of the UserForm's properties, such as appearance, behaviour and font. Open this via the right-click menu.
+- Toolbox window: allows for the addition of controls. Opens automatically.
+- IDE window: allows for VBA code triggered by events, to be attached to the UserForm. Open this by double-clicking the UserForm.
 
 #### Events
 
@@ -1016,8 +1024,7 @@ labelName.Visible = True
 The TextBox control displays information entered by the user. The `Value` property can be used to access the information entered into the TextBox.
 
 ```VBA
-' Stores the value of textboxName in the A1 cell.
-Range("A1") = textboxName.Value
+Range("A1") = textboxName.Value  ' Store the value of textboxName in cell A1
 ```
 
 The `Change` event triggers code each time the contents of the TextBox control is changed.
@@ -1041,9 +1048,11 @@ End Sub
 The following example ties together the Label, TextBox and CommandButton controls:
 
 ```VBA
-' This example is for a UserForm which asks the user to enter a numerical value.
+' This example is for a UserForm which asks the user to enter a
+' numerical value.
 
-' Displays labelError if the value in textboxNumerical is not a number.
+' This subroutine sisplays labelError if the value in textboxNumerical
+' is not a number.
 Private Sub textboxNumerical_Change()
     If IsNumeric(textboxNumerical.Value) Then
         labelError.Visible = False
@@ -1052,12 +1061,13 @@ Private Sub textboxNumerical_Change()
     End If
 End Sub
 
-' Checks that the value entered into textboxNumerical is a number when buttonSubmit is clicked.
-' If the value is a number, then it is stored in the A1 cell. Otherwise, a dialog box is shown.
+' This subroutine checks that the value entered into textboxNumerical
+' is a number when buttonSubmit is clicked.  If the value is a number,
+' then it is stored in the A1 cell.  Otherwise, a dialog box is shown.
 Private Sub buttonSubmit_Click()
     If IsNumeric(textboxNumerical.Value) Then
         Range("A1") = textboxNumerical.Value
-        Unload Me  ' Closes the UserForm
+        Unload Me  ' Close the UserForm
     Else
         MsgBox("Incorrect value.")
     End If
@@ -1071,7 +1081,7 @@ The CheckBox control displays the selection status of an item. The `Value` prope
 The following example combines the `Value` property with the `Click` event:
 
 ```VBA
-' Stores the status of checkboxExample in the A1 cell.
+' This subroutine stores the status of checkboxExample in the A1 cell.
 Private Sub checkboxExample_Click()
     If checkboxExample.Value = True Then
         Range("A1") = "Checked"
@@ -1090,18 +1100,18 @@ The usage and syntax are similar, with the exception that only one OptionButton 
 The `Controls` property of the Frame control returns the collection contained within the group. The following example makes use of this:
 
 ```VBA
-' Enters text into a cell based on the user's choice.
+' This subroutine enters text into a cell based on the user's choice.
 Private Sub buttonConfirm_Click()
     Dim columnValue As String, rowValue As String
 
-    ' Iterates through each OptionButton in the Column group.
+    ' This will iterate through each OptionButton in the Column group.
     For Each optionbuttonColumn In frameColumn.Controls
         If optionbuttonColumn.Value = True Then
             columnValue = optionbuttonColumn.Caption
         End If
     Next
 
-    ' Iterates through each OptionButton in the Row group.
+    ' This will iterate through each OptionButton in the Row group.
     For Each optionbuttonRow In frameRow.Controls
         If optionbuttonRow.Value = True Then
             rowValue = optionbuttonRow.Caption
@@ -1109,6 +1119,6 @@ Private Sub buttonConfirm_Click()
     Next
 
     Range(columnValue & rowValue) = "Cell chosen"
-    Unload Me  ' Closes the UserForm
+    Unload Me  ' Close the UserForm
 End Sub
 ```
