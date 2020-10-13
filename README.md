@@ -430,7 +430,7 @@ End Sub
 
 ### Constants
 
-Constants can’t be changed later and are declared similarly to variables, but can only be Boolean, Byte, Integer, Long, Currency, Single, Double, Date, String, or Variant types. Since the value of a constant should already be known, we can specify the value and type in a single line.
+Constants can't be changed later and are declared similarly to variables, but can only be Boolean, Byte, Integer, Long, Currency, Single, Double, Date, String, or Variant types. Since the value of a constant should already be known, we can specify the value and type in a single line.
 
 ```VBA
 Const gravity As Double = 9.80665
