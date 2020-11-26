@@ -746,7 +746,7 @@ MsgBox("Delete all contents?", 51, "Confirmation")
 The `MsgBox()` function also returns values, which can be referred to using the following syntax:
 
 ```VBA
-MsgBox(text, [buttons,] [title]) = returnValue
+MsgBox(text, [buttons,] [title]) = ReturnValue
 ```
 
 Either the constant name or the numerical value for the return value can be used. See [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/msgbox-function#return-values) for the full table of return values.
@@ -1069,7 +1069,7 @@ LabelName.Visible = True
 The TextBox control displays information entered by the user. The `Value` property can be used to access the information entered into the TextBox.
 
 ```VBA
-Range("A1") = TextBoxName.Value  ' Store the value of textboxName in cell A1
+Range("A1") = TextBoxName.Value  ' Store the value of TextBoxName in cell A1
 ```
 
 The `Change` event triggers code each time the contents of the TextBox control is changed.
