@@ -9,9 +9,9 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
 
 - [Coding Standards](#coding-standards)
   * [Indentation](#indentation)
-  * [Commenting](#commenting)
+  * [Comments](#comments)
   * [Quotes](#quotes)
-  * [Naming](#naming)
+  * [Names](#names)
 - [Introduction](#introduction)
   * [Getting Started](#getting-started)
   * [Macros](#macros)
@@ -113,7 +113,7 @@ Whenever quotation marks are required in code, use double quotes `" "`, rather t
 
 ### Names
 
-Identifiers should be written in either *PascalCase* or *camelCase*. In particular, camelCase should be used for parameter names, and PascalCase should be used for all other identifiers.
+Identifiers should be written in lowercase, *PascalCase*, or *camelCase*. In particular, identifiers consisting of only one word should be written in lowercase; parameter names should use camelCase; and all other identifiers should use PascalCase.
 
 Some IDEs, such as the one built into Excel, will automatically generate code. Names resulting from this do not need to be changed to fit into PascalCase or camelCase.
 
@@ -172,12 +172,10 @@ The first two ways are discussed later on in this guide, [here](#cell-content-ma
 To print to the Immediate window, we can use the `Print()` method:
 
 ```VBA
-Sub helloWorld()
+Sub HelloWorld()
     Debug.Print("Hello World!")
 End Sub
 ```
-
-
 ## Sheets and Cells
 
 There is a myriad of useful ways to interact with sheets and cells through VBA. In this section, we will look at some commonly used methods, objects and properties. See [here](https://docs.microsoft.com/en-us/office/vba/api/overview/Excel/object-model) for a full list of VBA objects and their corresponding methods and properties.
@@ -211,7 +209,7 @@ Instead of creating a Range object by selecting cells individually within the `R
 ```VBA
 Range("A1:A5").Select  ' Select cells A1 to A5
 
-Range("namedRange").Select  ' Select cells from the namedRange range
+Range("NamedRange").Select  ' Select cells from the NamedRange range
 ```
 
 Similarly, we can select entire rows or columns by using the `Rows` or `Columns` properties, respectively. Alternatively, we can still use the `Range` property.
@@ -406,16 +404,16 @@ See the [documentation on types](https://docs.microsoft.com/en-us/office/vba/lan
 
 ### Variables
 
-Variable declaration is done as usual (often named in camelCase).
+Variable declaration is done as usual.
 
 ```VBA
-Dim variableName As Type
+Dim VariableName As Type
 ```
 
 We may also declare multiple variables in a single line.
 
 ```VBA
-Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
+Dim VariableName1 As Type1, VariableName2 As Type2, VariableName3 As Type3
 ```
 
 ### Variable Scope
@@ -425,36 +423,36 @@ As usual, the scope of a variable is, by default, the subroutine in which it is 
 We can declare variables at the beginning of a module to allow usage within the entire module.
 
 ```VBA
-Dim variableName As Type
+Dim VariableName As Type
 
-Sub numberOne()
-    ' We can use variableName here.
+Sub NumberOne()
+    ' We can use VariableName here.
 End Sub
 
-Sub numberTwo()
-    ' We can also use variableName here.
+Sub NumberTwo()
+    ' We can also use VariableName here.
 End Sub
 ```
 
 If we want to use variables globally across all modules, then we can instead use the `Global` statement at the beginning of a module.
 
 ```VBA
-Global variableName As Type
+Global VariableName As Type
 ```
 
 The `Static` statement can be used to allow the value of a variable to persist.
 
 ```VBA
-Sub numberOne()
-    Static variableName As Type
+Sub NumberOne()
+    Static VariableName As Type
 End Sub
 ```
 
 We can also allow the value of all variables within a subroutine to persist.
 
 ```VBA
-Static Sub numberOne()
-    Dim variableName1 As Type1, variableName2 As Type2, variableName3 As Type3
+Static Sub NumberOne()
+    Dim VariableName1 As Type1, VariableName2 As Type2, VariableName3 As Type3
 End Sub
 ```
 
@@ -492,11 +490,11 @@ We can use a `Select Case` statement to handle cases more elegantly.
 Dim x As Integer
 Select Case x
 Case Is = 5
-    xComment = "This is the maximum achievable!"
+    comment = "This is the maximum achievable!"
 Case Is = 4
-    xComment = "This is almost the maximum achievable!"
+    comment = "This is almost the maximum achievable!"
 Case Else
-    xComment = "This is quite average"
+    comment = "This is quite average"
 End Select
 ```
 
@@ -507,15 +505,15 @@ When working with a lot of data, it is common to want to be able to compare whet
 The wildcard usage is typical and can be read in detail [here](https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/wildcard-characters-used-in-string-comparisons).
 
 ```VBA
-Dim exampleString As String
-exampleString = "Example 12345"
+Dim ExampleString As String
+ExampleString = "Example 12345"
 
 ' All of the following conditionals return True:
-exampleString Like "*12345*"
-exampleString Like "Example 12###"
-exampleString Like "?xample?1234?"
-exampleString Like "[DEF]xample 1234[4-7]"
-exampleString Like "[!GHIJ]xample 1234[!6-9]"
+ExampleString Like "*12345*"
+ExampleString Like "Example 12###"
+ExampleString Like "?xample?1234?"
+ExampleString Like "[DEF]xample 1234[4-7]"
+ExampleString Like "[!GHIJ]xample 1234[!6-9]"
 ```
 
 ## Loops
@@ -564,7 +562,7 @@ Loop Until condition
 The basic syntax for a `For` loop is as follows:
 
 ```VBA
-For i = startNumber To endNumber
+For i = StartNumber To EndNumber
     statement
 Next
 ```
@@ -584,7 +582,7 @@ Next
 We have already seen in the Introduction section that VBA code to be run is contained within subroutines in the following way:
 
 ```VBA
-Sub macroName()
+Sub MacroName()
     statement
 End Sub
 ```
@@ -639,7 +637,7 @@ Sub subroutine1(variableName1 As Type1, variableName2 As Type2)
 End Sub
 
 Sub subroutine2()
-    subroutine1 someArgument1, someArgument2
+    subroutine1 SomeArgument1, SomeArgument2
 End Sub
 ```
 
@@ -652,8 +650,8 @@ End Sub
 
 Sub subroutine2()
     ' All of the following subroutine calls are valid:
-    subroutine1 someArgument1
-    subroutine1 someArgument1, someArgument2
+    subroutine1 SomeArgument1
+    subroutine1 SomeArgument1, SomeArgument2
 End Sub
 ```
 
@@ -671,26 +669,26 @@ The differences are best demonstrated by example.
 ' Below, two subroutines which square numbers have been created, but
 ' with different pass bys.
 
-Sub calculateSquare1(ByRef number As Integer)
+Sub CalculateSquare1(ByRef number As Integer)
     number = number * number
 End Sub
 
-Sub calculateSquare2(ByVal number As Integer)
+Sub CalculateSquare2(ByVal number As Integer)
     number = number ^ 2
 End Sub
 
 ' This subroutine tests the above two subroutines.
 Sub test()
-    Dim testNumber1 As Integer, testNumber2 As Integer
-    testNumber1 = 20
-    testNumber2 = 20
+    Dim TestNumber1 As Integer, TestNumber2 As Integer
+    TestNumber1 = 20
+    TestNumber2 = 20
 
-    calculateSquare1 testNumber1
-    calculateSquare2 testNumber2
+    CalculateSquare1 TestNumber1
+    CalculateSquare2 TestNumber2
 
-    Debug.Print(testNumber1)  ' Print: 400
+    Debug.Print(TestNumber1)  ' Print: 400
 
-    Debug.Print(testNumber2)  ' Print: 20
+    Debug.Print(TestNumber2)  ' Print: 20
 End Sub
 ```
 
@@ -702,13 +700,13 @@ In VBA, subroutines and functions are similar, except functions must return a va
 
 ```VBA
 ' This function squares numbers.
-Function calculateSquare(number As Integer)
-    calculateSquare = number ^ 2
+Function CalculateSquare(number As Integer)
+    CalculateSquare = number ^ 2
 End Function
 
-' This subroutine tests the calculateSquare function.
+' This subroutine tests the CalculateSquare function.
 Sub test()
-    result = calculateSquare(20)
+    result = CalculateSquare(20)
 
     Debug.Print(result)  ' Print: 400
 End Sub
@@ -717,7 +715,7 @@ End Sub
 Functions which are created inside modules can be used in a worksheet just like any other Excel function. Conversely, Excel functions can be used inside modules by using the WorksheetFunction object.
 
 ```VBA
-WorksheetFunction.functionName
+WorksheetFunction.FunctionName
 ```
 
 ## Dialog Box Functions
@@ -1063,7 +1061,7 @@ We will also discuss some commonly used events and examples to add functionality
 The Label control displays text. The `Visible` property can be used to determine the visibility of the text. For example, it could be used to display an error message under certain conditions. Events are typically not associated with this control.
 
 ```VBA
-labelName.Visible = True
+LabelName.Visible = True
 ```
 
 #### TextBox
@@ -1071,13 +1069,13 @@ labelName.Visible = True
 The TextBox control displays information entered by the user. The `Value` property can be used to access the information entered into the TextBox.
 
 ```VBA
-Range("A1") = textboxName.Value  ' Store the value of textboxName in cell A1
+Range("A1") = TextBoxName.Value  ' Store the value of textboxName in cell A1
 ```
 
 The `Change` event triggers code each time the contents of the TextBox control is changed.
 
 ```VBA
-Private Sub textboxName_Change()
+Private Sub TextBoxName_Change()
 
 End Sub
 ```
@@ -1087,7 +1085,7 @@ End Sub
 The CommandButton control starts, ends, or interrupts an action or series of actions. The `Click` event triggers code when the CommandButton control is clicked.
 
 ```VBA
-Private Sub commandbuttonName_Click()
+Private Sub CommandButtonName_Click()
 
 End Sub
 ```
@@ -1098,22 +1096,22 @@ The following example ties together the Label, TextBox and CommandButton control
 ' This example is for a UserForm which asks the user to enter a
 ' numerical value.
 
-' This subroutine sisplays labelError if the value in textboxNumerical
+' This subroutine displays LabelError if the value in TextBoxNumerical
 ' is not a number.
-Private Sub textboxNumerical_Change()
-    If IsNumeric(textboxNumerical.Value) Then
-        labelError.Visible = False
+Private Sub TextBoxNumerical_Change()
+    If IsNumeric(TextBoxNumerical.Value) Then
+        LabelError.Visible = False
     Else
-        labelError.Visible = True
+        LabelError.Visible = True
     End If
 End Sub
 
-' This subroutine checks that the value entered into textboxNumerical
-' is a number when buttonSubmit is clicked.  If the value is a number,
+' This subroutine checks that the value entered into TextBoxNumerical
+' is a number when ButtonSubmit is clicked.  If the value is a number,
 ' then it is stored in the A1 cell.  Otherwise, a dialog box is shown.
-Private Sub buttonSubmit_Click()
-    If IsNumeric(textboxNumerical.Value) Then
-        Range("A1") = textboxNumerical.Value
+Private Sub ButtonSubmit_Click()
+    If IsNumeric(TextBoxNumerical.Value) Then
+        Range("A1") = TextBoxNumerical.Value
         Unload Me  ' Close the UserForm
     Else
         MsgBox("Incorrect value.")
@@ -1128,9 +1126,9 @@ The CheckBox control displays the selection status of an item. The `Value` prope
 The following example combines the `Value` property with the `Click` event:
 
 ```VBA
-' This subroutine stores the status of checkboxExample in the A1 cell.
-Private Sub checkboxExample_Click()
-    If checkboxExample.Value = True Then
+' This subroutine stores the status of CheckBoxExample in the A1 cell.
+Private Sub CheckBoxExample_Click()
+    If CheckBoxExample.Value = True Then
         Range("A1") = "Checked"
     Else
         Range("A1") = "Unchecked"
@@ -1148,24 +1146,24 @@ The `Controls` property of the Frame control returns the collection contained wi
 
 ```VBA
 ' This subroutine enters text into a cell based on the user's choice.
-Private Sub buttonConfirm_Click()
-    Dim columnValue As String, rowValue As String
+Private Sub ButtonConfirm_Click()
+    Dim ColumnValue As String, RowValue As String
 
     ' This will iterate through each OptionButton in the Column group.
-    For Each optionbuttonColumn In frameColumn.Controls
-        If optionbuttonColumn.Value = True Then
-            columnValue = optionbuttonColumn.Caption
+    For Each OptionButtonColumn In FrameColumn.Controls
+        If OptionButtonColumn.Value = True Then
+            ColumnValue = OptionButtonColumn.Caption
         End If
     Next
 
     ' This will iterate through each OptionButton in the Row group.
-    For Each optionbuttonRow In frameRow.Controls
-        If optionbuttonRow.Value = True Then
-            rowValue = optionbuttonRow.Caption
+    For Each OptionButtonRow In FrameRow.Controls
+        If OptionButtonRow.Value = True Then
+            RowValue = OptionButtonRow.Caption
         End If
     Next
 
-    Range(columnValue & rowValue) = "Cell chosen"
+    Range(ColumnValue & RowValue) = "Cell chosen"
     Unload Me  ' Close the UserForm
 End Sub
 ```
