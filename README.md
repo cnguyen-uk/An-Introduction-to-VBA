@@ -7,6 +7,11 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
 
 ## Table of Contents
 
+- [Coding Standards](#coding-standards)
+  * [Indentation](#indentation)
+  * [Commenting](#commenting)
+  * [Quotes](#quotes)
+  * [Naming](#naming)
 - [Introduction](#introduction)
   * [Getting Started](#getting-started)
   * [Macros](#macros)
@@ -62,6 +67,56 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
     + [CheckBox](#checkbox)
     + [OptionButton](#optionbutton)
 
+## Coding Standards
+
+All written code should follow a style guide to ensure that standards are kept consistent across any codebase and make code easier to read. Badly written code is difficult to scale, optimise, and debug. Such is the importance of high coding standards that this guide will discuss it as a separate section before any code is seen.
+
+We follow the standards in [Microsoft Visual Basic Coding Conventions](https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/program-structure/coding-conventions). In particular, this section will act as a reference for language-specific best practices for indentation, comments, quotes, and names, since these can vary across different programming languages.
+
+### Indentation
+
+The standard is to use four spaces for indented code.
+
+### Comments
+
+Comments begin with `'`.
+
+#### Inline Comments
+
+Inline comments should be used sparingly and not state the obvious. They should be separated by at least two spaces from the code and use commanding language rather than descriptive. For example, the following is preferred:
+
+```VBA
+Range("A1, D4").Select  ' Select important cells
+```
+
+As a comparison, the following should be avoided:
+
+```VBA
+Range("A1, D4").Select  ' Selects important cells
+```
+
+#### Block Comments
+
+Block comments should be written in complete sentences, be indented with the code which it is commenting, and come *before* the code which it is commenting. Placing the comment after is merciless on a confused reader. Paragraphs are separated by a single line containing a single `'`, and multi-sentence comments should have two spaces after a sentence-ending period (except after the final sentence).
+
+```VBA
+' This statement selects very important cells in Sheet11.  More may be added.
+'
+' There are more very important cells in Sheet12.
+Sheets("Sheet11").Activate
+Range("A1, F2, M5").Select
+```
+
+### Quotes
+
+Whenever quotation marks are required in code, use double quotes `" "`, rather than single quotes `' '`. These are not interchangeable.
+
+### Names
+
+Identifiers should be written in either *PascalCase* or *camelCase*. In particular, camelCase should be used for parameter names, and PascalCase should be used for all other identifiers.
+
+Some IDEs, such as the one built into Excel, will automatically generate code. Names resulting from this do not need to be changed to fit into PascalCase or camelCase.
+
 ## Introduction
 
 It is entirely possible to make use of VBA without really learning the language, and we will do so in this section by recording macros. However, knowing only this will severely restrict one's ability to create automation for more sophisticated tasks.
@@ -78,15 +133,7 @@ In general, we can create macros to automate tasks in Excel. Macros can be creat
 
 Indeed, the most basic way to work with VBA is to let Excel create the code by recording a macro. This can be done by using the "Record Macro" option in the Developer tab. Given the straightforward nature of VBA syntax, we can make minor tweaks to the code as we wish.
 
-Generally, VBA code to be run is contained within *subroutines* (also called *procedures*),  with naming commonly done in camelCase. Commenting is simply prefaced with a `'`.
-
-```VBA
-Sub macroName()
-    ' This is a comment.
-    statement1
-    statement2
-End Sub
-```
+Generally, VBA code to be run is contained within *subroutines* (also called *procedures*).
 
 To actually run a macro, we can either use the IDE itself to run the code, or we can insert a button into the sheet by clicking on "Insert" then "Button (Form Control)" in the Developer tab. We can then assign a macro to the button, and execute the macro by clicking on it.
 
