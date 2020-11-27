@@ -10,6 +10,8 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
 - [Coding Standards](#coding-standards)
   * [Indentation](#indentation)
   * [Comments](#comments)
+    + [Inline Comments](#inline-comments)
+    + [Block Comments](#block-comments)
   * [Quotes](#quotes)
   * [Names](#names)
 - [Introduction](#introduction)
