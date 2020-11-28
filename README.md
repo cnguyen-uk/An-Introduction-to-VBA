@@ -115,7 +115,7 @@ Whenever quotation marks are required in code, use double quotes `" "`, rather t
 
 ### Names
 
-Identifiers should be written in lowercase, *PascalCase*, or *camelCase*. In particular, single-word identifiers should be written in lowercase; parameter names should use camelCase; and all other identifiers should use PascalCase.
+Single-word identifiers should be written in lowercase; parameter names should use *camelCase*; and all other identifiers should use *PascalCase*.
 
 Some IDEs, such as the one built into Excel, will automatically generate code. Names resulting from this do not need to be changed to fit into PascalCase or camelCase.
 
