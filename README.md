@@ -7,7 +7,7 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
 
 ## Table of Contents
 
-- [Coding Standards](#coding-standards)
+- [Code Standards](#code-standards)
   * [Indentation](#indentation)
   * [Comments](#comments)
     + [Inline Comments](#inline-comments)
@@ -69,9 +69,9 @@ There are plenty of good, comprehensive guides to using VBA available online. Th
     + [CheckBox](#checkbox)
     + [OptionButton](#optionbutton)
 
-## Coding Standards
+## Code Standards
 
-All written code should follow a style guide to ensure that standards are kept consistent across any codebase and make code easier to read. Badly written code is difficult to scale, optimise, and debug. Such is the importance of high coding standards that this guide will discuss it as a separate section before any code is seen.
+All written code should follow a style guide to ensure that standards are kept consistent across any codebase and make code easier to read. Badly written code is difficult to scale, optimise, and debug. Such is the importance of high code standards that this guide will discuss it as a separate section before any code is seen.
 
 We follow the standards in [Microsoft Visual Basic Coding Conventions](https://docs.microsoft.com/en-us/dotnet/visual-basic/programming-guide/program-structure/coding-conventions). In particular, this section will act as a reference for language-specific best practices for indentation, comments, quotes, and names, since these can vary across different programming languages.
 
