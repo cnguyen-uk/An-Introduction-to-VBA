@@ -647,7 +647,7 @@ By default, if a subroutine accepts arguments, then they are not optional - a su
 
 ```VBA
 Sub subroutine1(variableName1 As Type1, Optional variableName2 As Type2)
-    statement ' Can be dependent on variableName1 and variableName2
+    statement  ' Can be dependent on variableName1 and variableName2
 End Sub
 
 Sub subroutine2()
